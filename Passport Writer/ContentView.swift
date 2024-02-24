@@ -38,10 +38,18 @@ struct PersonRowView: View {
 
 struct StaffList: View {
     var body: some View {
-        List {
-            ForEach(passports) { person in
-                PersonRowView(passport: person)
+        NavigationSplitView {
+            List {
+                ForEach(passports) { person in
+                    NavigationLink {
+                        SinglePassportView()
+                    } label: {
+                        PersonRowView(passport: person)
+                    }
+                }
             }
+        } detail: {
+            Text("idk")
         }
     }
 }
