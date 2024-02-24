@@ -11,12 +11,13 @@ struct Passport: Identifiable {
     let surname: String
     let id: Int32
     let secret: String
+    let activated: Bool
 }
 
 /// these secrets are fake, just for testing
 var passports = [
-    Passport(name: "Jack", surname: "Hogan", id: 1, secret: "2eV78TKypsBGgNZG7aX"),
-    Passport(name: "Matthew", surname: "Stanciu", id: 12, secret: "Ot935wO9KEnV4fdFLGLxl")
+    Passport(name: "Jack", surname: "Hogan", id: 1, secret: "2eV78TKypsBGgNZG7aX", activated: true),
+    Passport(name: "Matthew", surname: "Stanciu", id: 12, secret: "Ot935wO9KEnV4fdFLGLxl", activated: false)
 ]
 
 struct PersonRowView: View {
@@ -29,6 +30,12 @@ struct PersonRowView: View {
                 .font(.headline)
             HStack(spacing: 3) {
                 Label(String(passport.id), systemImage: "person.text.rectangle.fill")
+                Spacer()
+                if passport.activated {
+                    StatusTextView(text: "Activated", textColor: Color.green, borderColor: Color.green)
+                } else {
+                    StatusTextView(text: "Not Activated", textColor: Color.red, borderColor: Color.red)
+                }
             }
             .foregroundColor(.secondary)
             .font(.subheadline)
