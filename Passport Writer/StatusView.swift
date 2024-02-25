@@ -9,12 +9,13 @@ import SwiftUI
 
 struct StatusTextView: View {
     let text: String
+    let size: CGFloat
     let textColor: Color
     let borderColor: Color
 
     var body: some View {
         Text(text)
-            .font(.system(size: 12))
+            .font(.system(size: size))
             .padding(EdgeInsets(top: 2, leading: 4, bottom: 2, trailing: 4))
             .foregroundColor(textColor)
             .background(Color.white)
@@ -23,5 +24,18 @@ struct StatusTextView: View {
                 RoundedRectangle(cornerRadius: 5)
                     .stroke(borderColor, lineWidth: 1)
             )
+    }
+}
+
+struct StatusView: View {
+    let activated: Bool
+    let size: CGFloat
+    
+    var body: some View {
+        if activated {
+            StatusTextView(text: "Activated", size: size, textColor: Color.green, borderColor: Color.green)
+        } else {
+            StatusTextView(text: "Not Activated", size: size, textColor: Color.red, borderColor: Color.red)
+        }
     }
 }

@@ -37,6 +37,7 @@ struct PassportDetailView: View {
             VStack(alignment: .leading, spacing: 6, content: {
                 Label(String(passport.id), systemImage: "person.text.rectangle.fill")
                 Label(passport.secret, systemImage: "key.horizontal.fill").font(mono)
+                StatusView(activated: passport.activated, size: 16)
             })
             VStack {
                 Button(action: {
@@ -62,7 +63,8 @@ struct PassportDetailView: View {
 
 struct PassportDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        let mockPassport = Passport(name: "Matthew", surname: "Stanciu", id: 12, secret: "Ot935wO9KEnV4fdFLGLxl", activated: false)
+        
+        let mockPassport = Passport(id: 12, owner_id: 12, version: 0, surname: "Stanciu", name: "Matthew", date_of_birth: "2002-02-17T00:00:00.000Z", date_of_issue: "2024-02-09T00:00:00.000Z", place_of_origin: "The woods", secret: "Ot935wO9KEnV4fdFLGLxl", activated: true)
 
         PassportDetailView(passport: mockPassport)
     }

@@ -6,19 +6,18 @@
 //
 
 import SwiftUI
-struct Passport: Identifiable {
-    let name: String
-    let surname: String
-    let id: Int32
-    let secret: String
-    let activated: Bool
-}
 
-/// these secrets are fake, just for testing
-var passports = [
-    Passport(name: "Jack", surname: "Hogan", id: 1, secret: "2eV78TKypsBGgNZG7aX", activated: true),
-    Passport(name: "Matthew", surname: "Stanciu", id: 12, secret: "Ot935wO9KEnV4fdFLGLxl", activated: false)
-]
+class PassportViewModel: ObservableObject {
+    @Published var passports = [Passport]()
+    
+    func load() {
+        fetchData { [weak self] data in
+            DispatchQueue.main.async {
+                self?.passports = data ?? []
+            }
+        }
+    }
+}
 
 struct PassportRowView: View {
     var passport: Passport
@@ -30,11 +29,7 @@ struct PassportRowView: View {
                 .font(.headline)
             HStack(spacing: 22) {
                 Label(String(passport.id), systemImage: "person.text.rectangle.fill")
-                if passport.activated {
-                    StatusTextView(text: "Activated", textColor: Color.green, borderColor: Color.green)
-                } else {
-                    StatusTextView(text: "Not Activated", textColor: Color.red, borderColor: Color.red)
-                }
+                StatusView(activated: passport.activated, size: 12)
             }
             .foregroundColor(.secondary)
             .font(.subheadline)
@@ -43,10 +38,12 @@ struct PassportRowView: View {
 }
 
 struct PassportListView: View {
+    @StateObject private var viewModel = PassportViewModel()
+    
     var body: some View {
         NavigationSplitView {
             List {
-                ForEach(passports) { passport in
+                ForEach(viewModel.passports) { passport in
                     NavigationLink {
                         PassportDetailView(passport: passport)
                     } label: {
@@ -56,6 +53,8 @@ struct PassportListView: View {
             }
         } detail: {
             Text("Passport details")
+        }.onAppear {
+            viewModel.load()
         }
     }
 }

@@ -16,6 +16,9 @@
 		2AD3518B2B89E1F900466EA3 /* Passport_WriterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD3518A2B89E1F900466EA3 /* Passport_WriterUITestsLaunchTests.swift */; };
 		2AD3519C2B89EBAD00466EA3 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD3519B2B89EBAD00466EA3 /* StatusView.swift */; };
 		2AD3519E2B8AD09B00466EA3 /* PassportDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD3519D2B8AD09B00466EA3 /* PassportDetailView.swift */; };
+		2AD351A12B8AF84F00466EA3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2AD351A02B8AF84F00466EA3 /* Alamofire */; };
+		2AD351A52B8AF95800466EA3 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD351A42B8AF95800466EA3 /* DataService.swift */; };
+		2AD351A72B8AFB5200466EA3 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AD351A62B8AFB5200466EA3 /* Config.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,8 @@
 		2AD3518A2B89E1F900466EA3 /* Passport_WriterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passport_WriterUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2AD3519B2B89EBAD00466EA3 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		2AD3519D2B8AD09B00466EA3 /* PassportDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportDetailView.swift; sourceTree = "<group>"; };
+		2AD351A42B8AF95800466EA3 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		2AD351A62B8AFB5200466EA3 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AD351A12B8AF84F00466EA3 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +84,7 @@
 		2AD351612B89E1F700466EA3 = {
 			isa = PBXGroup;
 			children = (
+				2AD351A62B8AFB5200466EA3 /* Config.plist */,
 				2AD3516C2B89E1F700466EA3 /* Passport Writer */,
 				2AD3517D2B89E1F900466EA3 /* Passport WriterTests */,
 				2AD351872B89E1F900466EA3 /* Passport WriterUITests */,
@@ -98,6 +105,7 @@
 		2AD3516C2B89E1F700466EA3 /* Passport Writer */ = {
 			isa = PBXGroup;
 			children = (
+				2AD351A32B8AF94800466EA3 /* Services */,
 				2AD3516D2B89E1F700466EA3 /* Passport_WriterApp.swift */,
 				2AD3516F2B89E1F700466EA3 /* ContentView.swift */,
 				2AD351712B89E1F800466EA3 /* Assets.xcassets */,
@@ -133,6 +141,14 @@
 			path = "Passport WriterUITests";
 			sourceTree = "<group>";
 		};
+		2AD351A32B8AF94800466EA3 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2AD351A42B8AF95800466EA3 /* DataService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -149,6 +165,9 @@
 			dependencies = (
 			);
 			name = "Passport Writer";
+			packageProductDependencies = (
+				2AD351A02B8AF84F00466EA3 /* Alamofire */,
+			);
 			productName = "Passport Writer";
 			productReference = 2AD3516A2B89E1F700466EA3 /* Passport Writer.app */;
 			productType = "com.apple.product-type.application";
@@ -221,6 +240,9 @@
 				Base,
 			);
 			mainGroup = 2AD351612B89E1F700466EA3;
+			packageReferences = (
+				2AD3519F2B8AF84F00466EA3 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 2AD3516B2B89E1F700466EA3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -238,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2AD351752B89E1F800466EA3 /* Preview Assets.xcassets in Resources */,
+				2AD351A72B8AFB5200466EA3 /* Config.plist in Resources */,
 				2AD351722B89E1F800466EA3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,6 +290,7 @@
 				2AD351702B89E1F700466EA3 /* ContentView.swift in Sources */,
 				2AD3516E2B89E1F700466EA3 /* Passport_WriterApp.swift in Sources */,
 				2AD3519C2B89EBAD00466EA3 /* StatusView.swift in Sources */,
+				2AD351A52B8AF95800466EA3 /* DataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,6 +620,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2AD3519F2B8AF84F00466EA3 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2AD351A02B8AF84F00466EA3 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2AD3519F2B8AF84F00466EA3 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2AD351622B89E1F700466EA3 /* Project object */;
 }
