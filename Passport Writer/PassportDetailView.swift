@@ -17,6 +17,8 @@ struct PassportDetailView: View {
     let IMAGE_WIDTH = 314.6666666667
     let IMAGE_HEIGHT = 221.3333333333
     
+    @State private var nfcService = NFCService()
+    
     var body: some View {
         VStack(alignment: .leading, content: {
             Text("\(passport.name) \(passport.surname)").font(.largeTitle).bold()
@@ -41,7 +43,11 @@ struct PassportDetailView: View {
             })
             VStack {
                 Button(action: {
-                    // Button action
+                    let primaryRecord = "https://id.purduehackers.com/scan?id=\(String(passport.id))&secret=\(passport.secret)"
+                    let secondRecord = String(passport.id)
+                    let thirdRecord = passport.secret
+                    
+                    nfcService.writeToTag(url: primaryRecord, text1: secondRecord, text2: thirdRecord)
                 }) {
                     HStack {
                         Image(systemName: "pencil.line")
@@ -64,7 +70,7 @@ struct PassportDetailView: View {
 struct PassportDetailView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let mockPassport = Passport(id: 12, owner_id: 12, version: 0, surname: "Stanciu", name: "Matthew", date_of_birth: "2002-02-17T00:00:00.000Z", date_of_issue: "2024-02-09T00:00:00.000Z", place_of_origin: "The woods", secret: "Ot935wO9KEnV4fdFLGLxl", activated: true)
+        let mockPassport = Passport(id: 12, owner_id: 12, version: 0, surname: "Stanciu", name: "Matthew", date_of_birth: "2002-02-17T00:00:00.000Z", date_of_issue: "2024-02-09T00:00:00.000Z", place_of_origin: "The woods", secret: "cUWnYREMmNdvOQI2M9uhTczeRStj0fmq", activated: true)
 
         PassportDetailView(passport: mockPassport)
     }

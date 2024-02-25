@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A45C1AC2B8BC6AA00FD8F10 /* NFCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45C1AB2B8BC6AA00FD8F10 /* NFCService.swift */; };
 		2AD3516E2B89E1F700466EA3 /* Passport_WriterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD3516D2B89E1F700466EA3 /* Passport_WriterApp.swift */; };
 		2AD351702B89E1F700466EA3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD3516F2B89E1F700466EA3 /* ContentView.swift */; };
 		2AD351722B89E1F800466EA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AD351712B89E1F800466EA3 /* Assets.xcassets */; };
@@ -39,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A45C1A82B8BC59900FD8F10 /* Passport Writer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Passport Writer.entitlements"; sourceTree = "<group>"; };
+		2A45C1AB2B8BC6AA00FD8F10 /* NFCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCService.swift; sourceTree = "<group>"; };
 		2AD3516A2B89E1F700466EA3 /* Passport Writer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Passport Writer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AD3516D2B89E1F700466EA3 /* Passport_WriterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passport_WriterApp.swift; sourceTree = "<group>"; };
 		2AD3516F2B89E1F700466EA3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -105,6 +108,7 @@
 		2AD3516C2B89E1F700466EA3 /* Passport Writer */ = {
 			isa = PBXGroup;
 			children = (
+				2A45C1A82B8BC59900FD8F10 /* Passport Writer.entitlements */,
 				2AD351A32B8AF94800466EA3 /* Services */,
 				2AD3516D2B89E1F700466EA3 /* Passport_WriterApp.swift */,
 				2AD3516F2B89E1F700466EA3 /* ContentView.swift */,
@@ -145,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				2AD351A42B8AF95800466EA3 /* DataService.swift */,
+				2A45C1AB2B8BC6AA00FD8F10 /* NFCService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -287,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2AD3519E2B8AD09B00466EA3 /* PassportDetailView.swift in Sources */,
+				2A45C1AC2B8BC6AA00FD8F10 /* NFCService.swift in Sources */,
 				2AD351702B89E1F700466EA3 /* ContentView.swift in Sources */,
 				2AD3516E2B89E1F700466EA3 /* Passport_WriterApp.swift in Sources */,
 				2AD3519C2B89EBAD00466EA3 /* StatusView.swift in Sources */,
@@ -451,12 +457,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Passport Writer/Passport Writer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Passport Writer/Preview Content\"";
 				DEVELOPMENT_TEAM = QT423GZX3C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "Writing to Purdue Hackers passports & activating them";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -480,12 +489,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Passport Writer/Passport Writer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Passport Writer/Preview Content\"";
 				DEVELOPMENT_TEAM = QT423GZX3C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "Writing to Purdue Hackers passports & activating them";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
