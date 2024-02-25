@@ -26,7 +26,7 @@ struct PassportDetailView: View {
                 .padding([.bottom], 10)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            AsyncImage(url: URL(string: "https://pub-84077b41cf284cf3a74ef394a9226674.r2.dev/" + String(passport.id) + ".png")) { image in
+            AsyncImage(url: URL(string: "https://pub-84077b41cf284cf3a74ef394a9226674.r2.dev/\(String(passport.id)).png")) { image in
                 image.resizable()
                     .scaledToFit()
                     .frame(width: IMAGE_WIDTH, height: IMAGE_HEIGHT)
@@ -43,11 +43,9 @@ struct PassportDetailView: View {
             })
             VStack {
                 Button(action: {
-                    let primaryRecord = "https://id.purduehackers.com/scan?id=\(String(passport.id))&secret=\(passport.secret)"
-                    let secondRecord = String(passport.id)
-                    let thirdRecord = passport.secret
+                    let url = "https://id.purduehackers.com/scan?id=\(String(passport.id))&secret=\(passport.secret)"
                     
-                    nfcService.writeToTag(url: primaryRecord, text1: secondRecord, text2: thirdRecord)
+                    nfcService.writeToTag(url: url, id: String(passport.id), secret: passport.secret)
                 }) {
                     HStack {
                         Image(systemName: "pencil.line")

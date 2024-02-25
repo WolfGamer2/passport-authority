@@ -12,11 +12,11 @@ class NFCService: NSObject, NFCNDEFReaderSessionDelegate {
     var ndefMessage: NFCNDEFMessage?
     var completion: ((Result<String, Error>) -> Void)?
     
-    func writeToTag(url: String, text1: String, text2: String) {
+    func writeToTag(url: String, id: String, secret: String) {
         guard let url = URL(string: url),
               let urlRecord = NFCNDEFPayload.wellKnownTypeURIPayload(url: url),
-              let textRecord1 = NFCNDEFPayload.wellKnownTypeTextPayload(string: text1, locale: Locale(identifier: "en")),
-              let textRecord2 = NFCNDEFPayload.wellKnownTypeTextPayload(string: text2, locale: Locale(identifier: "en")) else {
+              let textRecord1 = NFCNDEFPayload.wellKnownTypeTextPayload(string: id, locale: Locale(identifier: "en-US")),
+              let textRecord2 = NFCNDEFPayload.wellKnownTypeTextPayload(string: secret, locale: Locale(identifier: "en-US")) else {
             print("Error creating NFCNDEFPayload")
             return
         }
@@ -31,6 +31,9 @@ class NFCService: NSObject, NFCNDEFReaderSessionDelegate {
         self.session?.alertMessage = "Hold your iPhone up to the passport."
         self.ndefMessage = message
         self.session?.begin()
+    }
+    
+    func readerSessionDidBecomeActive(_ session: NFCNDEFReaderSession) {
     }
     
     func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
@@ -65,7 +68,7 @@ class NFCService: NSObject, NFCNDEFReaderSessionDelegate {
                         if error != nil {
                             session.invalidate(errorMessage: "Write failed. Please try again.")
                         } else {
-                            session.alertMessage = "Passport updated!"
+//                            session.alertMessage = "Passport updated!"
                             session.invalidate()
                         }
                     }
