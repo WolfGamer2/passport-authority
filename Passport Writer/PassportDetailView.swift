@@ -16,6 +16,8 @@ struct PassportDetailView: View {
     
     @State private var nfcService = NFCService()
     
+    let IMAGE_HEIGHT = 235.3333333333
+    
     var body: some View {
         VStack(alignment: .leading, content: {
             Text("\(passport.name) \(passport.surname)").font(.largeTitle).bold()
@@ -26,10 +28,9 @@ struct PassportDetailView: View {
             AsyncImage(url: URL(string: "https://pub-84077b41cf284cf3a74ef394a9226674.r2.dev/\(String(passport.id)).png")) { image in
                 image.resizable()
                     .scaledToFit()
-                    .frame(width: .infinity, height: .infinity)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             } placeholder: {
-                ProgressView().frame(width: .infinity, height: .infinity)
+                ProgressView().frame(maxWidth: .infinity, maxHeight: IMAGE_HEIGHT)
                     .background(Color.gray)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             }
