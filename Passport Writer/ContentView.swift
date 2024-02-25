@@ -20,7 +20,7 @@ var passports = [
     Passport(name: "Matthew", surname: "Stanciu", id: 12, secret: "Ot935wO9KEnV4fdFLGLxl", activated: false)
 ]
 
-struct PersonRowView: View {
+struct PassportRowView: View {
     var passport: Passport
 
     var body: some View {
@@ -28,9 +28,8 @@ struct PersonRowView: View {
             Text(passport.name + " " + passport.surname)
                 .foregroundColor(.primary)
                 .font(.headline)
-            HStack(spacing: 3) {
+            HStack(spacing: 22) {
                 Label(String(passport.id), systemImage: "person.text.rectangle.fill")
-                Spacer()
                 if passport.activated {
                     StatusTextView(text: "Activated", textColor: Color.green, borderColor: Color.green)
                 } else {
@@ -43,37 +42,24 @@ struct PersonRowView: View {
     }
 }
 
-struct StaffList: View {
+struct PassportListView: View {
     var body: some View {
         NavigationSplitView {
             List {
-                ForEach(passports) { person in
+                ForEach(passports) { passport in
                     NavigationLink {
-                        SinglePassportView()
+                        SinglePassportView(passport: passport)
                     } label: {
-                        PersonRowView(passport: person)
+                        PassportRowView(passport: passport)
                     }
                 }
             }
         } detail: {
-            Text("idk")
+            Text("Passport details")
         }
-    }
-}
-
-struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-                .foregroundColor(.green)
-        }
-        .padding()
     }
 }
 
 #Preview {
-    StaffList()
+    PassportListView()
 }
