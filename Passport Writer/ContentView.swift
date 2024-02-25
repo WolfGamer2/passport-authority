@@ -24,7 +24,7 @@ struct PassportRowView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 3) {
-            Text(passport.name + " " + passport.surname)
+            Text("\(passport.name) \(passport.surname)")
                 .foregroundColor(.primary)
                 .font(.headline)
             HStack(spacing: 22) {

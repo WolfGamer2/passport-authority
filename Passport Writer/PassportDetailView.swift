@@ -19,7 +19,7 @@ struct PassportDetailView: View {
     
     var body: some View {
         VStack(alignment: .leading, content: {
-            Text(passport.name + " " + passport.surname).font(.largeTitle).bold()
+            Text("\(passport.name) \(passport.surname)").font(.largeTitle).bold()
                 .padding([.top], 24)
                 .padding([.bottom], 10)
                 .multilineTextAlignment(.leading)
