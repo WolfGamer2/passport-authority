@@ -89,8 +89,8 @@
 			children = (
 				2AD351A62B8AFB5200466EA3 /* Config.plist */,
 				2AD3516C2B89E1F700466EA3 /* Passport Authority */,
-				2AD3517D2B89E1F900466EA3 /* Passport WriterTests */,
-				2AD351872B89E1F900466EA3 /* Passport WriterUITests */,
+				2AD3517D2B89E1F900466EA3 /* Passport AuthorityTests */,
+				2AD351872B89E1F900466EA3 /* Passport AuthorityUITests */,
 				2AD3516B2B89E1F700466EA3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -128,21 +128,21 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		2AD3517D2B89E1F900466EA3 /* Passport WriterTests */ = {
+		2AD3517D2B89E1F900466EA3 /* Passport AuthorityTests */ = {
 			isa = PBXGroup;
 			children = (
 				2AD3517E2B89E1F900466EA3 /* Passport_WriterTests.swift */,
 			);
-			path = "Passport WriterTests";
+			path = "Passport AuthorityTests";
 			sourceTree = "<group>";
 		};
-		2AD351872B89E1F900466EA3 /* Passport WriterUITests */ = {
+		2AD351872B89E1F900466EA3 /* Passport AuthorityUITests */ = {
 			isa = PBXGroup;
 			children = (
 				2AD351882B89E1F900466EA3 /* Passport_WriterUITests.swift */,
 				2AD3518A2B89E1F900466EA3 /* Passport_WriterUITestsLaunchTests.swift */,
 			);
-			path = "Passport WriterUITests";
+			path = "Passport AuthorityUITests";
 			sourceTree = "<group>";
 		};
 		2AD351A32B8AF94800466EA3 /* Services */ = {
@@ -572,7 +572,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Passport Writer";
+				TEST_TARGET_NAME = "Passport Authority";
 			};
 			name = Debug;
 		};
@@ -590,7 +590,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Passport Writer";
+				TEST_TARGET_NAME = "Passport Authority";
 			};
 			name = Release;
 		};
