@@ -11,11 +11,8 @@ struct PassportDetailView: View {
     let passport: Passport
     
     let mono = Font
-        .system(size: 16)
+        .system(size: 15)
         .monospaced()
-    
-    let IMAGE_WIDTH = 314.6666666667
-    let IMAGE_HEIGHT = 221.3333333333
     
     @State private var nfcService = NFCService()
     
@@ -29,10 +26,10 @@ struct PassportDetailView: View {
             AsyncImage(url: URL(string: "https://pub-84077b41cf284cf3a74ef394a9226674.r2.dev/\(String(passport.id)).png")) { image in
                 image.resizable()
                     .scaledToFit()
-                    .frame(width: IMAGE_WIDTH, height: IMAGE_HEIGHT)
+                    .frame(width: .infinity, height: .infinity)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             } placeholder: {
-                ProgressView().frame(width: IMAGE_WIDTH, height: IMAGE_HEIGHT)
+                ProgressView().frame(width: .infinity, height: .infinity)
                     .background(Color.gray)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             }
@@ -61,7 +58,7 @@ struct PassportDetailView: View {
                  .shadow(color: .gray, radius: 3, x: 0, y: 3)
             }.padding([.top])
             Spacer()
-        }).padding([.leading], 24)
+        }).padding([.horizontal], 24)
     }
 }
 
