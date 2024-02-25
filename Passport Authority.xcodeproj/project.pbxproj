@@ -42,14 +42,14 @@
 /* Begin PBXFileReference section */
 		2A45C1A82B8BC59900FD8F10 /* Passport Writer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Passport Writer.entitlements"; sourceTree = "<group>"; };
 		2A45C1AB2B8BC6AA00FD8F10 /* NFCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCService.swift; sourceTree = "<group>"; };
-		2AD3516A2B89E1F700466EA3 /* Passport Writer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Passport Writer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AD3516A2B89E1F700466EA3 /* Passport Authority.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Passport Authority.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AD3516D2B89E1F700466EA3 /* Passport_WriterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passport_WriterApp.swift; sourceTree = "<group>"; };
 		2AD3516F2B89E1F700466EA3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2AD351712B89E1F800466EA3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2AD351742B89E1F800466EA3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2AD3517A2B89E1F900466EA3 /* Passport WriterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Passport WriterTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AD3517A2B89E1F900466EA3 /* Passport AuthorityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Passport AuthorityTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AD3517E2B89E1F900466EA3 /* Passport_WriterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passport_WriterTests.swift; sourceTree = "<group>"; };
-		2AD351842B89E1F900466EA3 /* Passport WriterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Passport WriterUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AD351842B89E1F900466EA3 /* Passport AuthorityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Passport AuthorityUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AD351882B89E1F900466EA3 /* Passport_WriterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passport_WriterUITests.swift; sourceTree = "<group>"; };
 		2AD3518A2B89E1F900466EA3 /* Passport_WriterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passport_WriterUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2AD3519B2B89EBAD00466EA3 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
@@ -98,9 +98,9 @@
 		2AD3516B2B89E1F700466EA3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2AD3516A2B89E1F700466EA3 /* Passport Writer.app */,
-				2AD3517A2B89E1F900466EA3 /* Passport WriterTests.xctest */,
-				2AD351842B89E1F900466EA3 /* Passport WriterUITests.xctest */,
+				2AD3516A2B89E1F700466EA3 /* Passport Authority.app */,
+				2AD3517A2B89E1F900466EA3 /* Passport AuthorityTests.xctest */,
+				2AD351842B89E1F900466EA3 /* Passport AuthorityUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -157,9 +157,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2AD351692B89E1F700466EA3 /* Passport Writer */ = {
+		2AD351692B89E1F700466EA3 /* Passport Authority */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2AD3518E2B89E1F900466EA3 /* Build configuration list for PBXNativeTarget "Passport Writer" */;
+			buildConfigurationList = 2AD3518E2B89E1F900466EA3 /* Build configuration list for PBXNativeTarget "Passport Authority" */;
 			buildPhases = (
 				2AD351662B89E1F700466EA3 /* Sources */,
 				2AD351672B89E1F700466EA3 /* Frameworks */,
@@ -169,17 +169,17 @@
 			);
 			dependencies = (
 			);
-			name = "Passport Writer";
+			name = "Passport Authority";
 			packageProductDependencies = (
 				2AD351A02B8AF84F00466EA3 /* Alamofire */,
 			);
 			productName = "Passport Writer";
-			productReference = 2AD3516A2B89E1F700466EA3 /* Passport Writer.app */;
+			productReference = 2AD3516A2B89E1F700466EA3 /* Passport Authority.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2AD351792B89E1F900466EA3 /* Passport WriterTests */ = {
+		2AD351792B89E1F900466EA3 /* Passport AuthorityTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2AD351912B89E1F900466EA3 /* Build configuration list for PBXNativeTarget "Passport WriterTests" */;
+			buildConfigurationList = 2AD351912B89E1F900466EA3 /* Build configuration list for PBXNativeTarget "Passport AuthorityTests" */;
 			buildPhases = (
 				2AD351762B89E1F900466EA3 /* Sources */,
 				2AD351772B89E1F900466EA3 /* Frameworks */,
@@ -190,14 +190,14 @@
 			dependencies = (
 				2AD3517C2B89E1F900466EA3 /* PBXTargetDependency */,
 			);
-			name = "Passport WriterTests";
+			name = "Passport AuthorityTests";
 			productName = "Passport WriterTests";
-			productReference = 2AD3517A2B89E1F900466EA3 /* Passport WriterTests.xctest */;
+			productReference = 2AD3517A2B89E1F900466EA3 /* Passport AuthorityTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		2AD351832B89E1F900466EA3 /* Passport WriterUITests */ = {
+		2AD351832B89E1F900466EA3 /* Passport AuthorityUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2AD351942B89E1F900466EA3 /* Build configuration list for PBXNativeTarget "Passport WriterUITests" */;
+			buildConfigurationList = 2AD351942B89E1F900466EA3 /* Build configuration list for PBXNativeTarget "Passport AuthorityUITests" */;
 			buildPhases = (
 				2AD351802B89E1F900466EA3 /* Sources */,
 				2AD351812B89E1F900466EA3 /* Frameworks */,
@@ -208,9 +208,9 @@
 			dependencies = (
 				2AD351862B89E1F900466EA3 /* PBXTargetDependency */,
 			);
-			name = "Passport WriterUITests";
+			name = "Passport AuthorityUITests";
 			productName = "Passport WriterUITests";
-			productReference = 2AD351842B89E1F900466EA3 /* Passport WriterUITests.xctest */;
+			productReference = 2AD351842B89E1F900466EA3 /* Passport AuthorityUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -236,7 +236,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2AD351652B89E1F700466EA3 /* Build configuration list for PBXProject "Passport Writer" */;
+			buildConfigurationList = 2AD351652B89E1F700466EA3 /* Build configuration list for PBXProject "Passport Authority" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -252,9 +252,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2AD351692B89E1F700466EA3 /* Passport Writer */,
-				2AD351792B89E1F900466EA3 /* Passport WriterTests */,
-				2AD351832B89E1F900466EA3 /* Passport WriterUITests */,
+				2AD351692B89E1F700466EA3 /* Passport Authority */,
+				2AD351792B89E1F900466EA3 /* Passport AuthorityTests */,
+				2AD351832B89E1F900466EA3 /* Passport AuthorityUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -322,12 +322,12 @@
 /* Begin PBXTargetDependency section */
 		2AD3517C2B89E1F900466EA3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2AD351692B89E1F700466EA3 /* Passport Writer */;
+			target = 2AD351692B89E1F700466EA3 /* Passport Authority */;
 			targetProxy = 2AD3517B2B89E1F900466EA3 /* PBXContainerItemProxy */;
 		};
 		2AD351862B89E1F900466EA3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2AD351692B89E1F700466EA3 /* Passport Writer */;
+			target = 2AD351692B89E1F700466EA3 /* Passport Authority */;
 			targetProxy = 2AD351852B89E1F900466EA3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -534,7 +534,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Passport Writer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Passport Writer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Passport Authority.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Passport Authority";
 			};
 			name = Debug;
 		};
@@ -554,7 +554,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Passport Writer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Passport Writer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Passport Authority.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Passport Authority";
 			};
 			name = Release;
 		};
@@ -597,7 +597,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2AD351652B89E1F700466EA3 /* Build configuration list for PBXProject "Passport Writer" */ = {
+		2AD351652B89E1F700466EA3 /* Build configuration list for PBXProject "Passport Authority" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2AD3518C2B89E1F900466EA3 /* Debug */,
@@ -606,7 +606,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2AD3518E2B89E1F900466EA3 /* Build configuration list for PBXNativeTarget "Passport Writer" */ = {
+		2AD3518E2B89E1F900466EA3 /* Build configuration list for PBXNativeTarget "Passport Authority" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2AD3518F2B89E1F900466EA3 /* Debug */,
@@ -615,7 +615,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2AD351912B89E1F900466EA3 /* Build configuration list for PBXNativeTarget "Passport WriterTests" */ = {
+		2AD351912B89E1F900466EA3 /* Build configuration list for PBXNativeTarget "Passport AuthorityTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2AD351922B89E1F900466EA3 /* Debug */,
@@ -624,7 +624,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2AD351942B89E1F900466EA3 /* Build configuration list for PBXNativeTarget "Passport WriterUITests" */ = {
+		2AD351942B89E1F900466EA3 /* Build configuration list for PBXNativeTarget "Passport AuthorityUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2AD351952B89E1F900466EA3 /* Debug */,
