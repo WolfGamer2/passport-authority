@@ -48,7 +48,7 @@ struct PassportListView: View {
             List {
                 ForEach(passports) { passport in
                     NavigationLink {
-                        SinglePassportView(passport: passport)
+                        PassportDetailView(passport: passport)
                     } label: {
                         PassportRowView(passport: passport)
                     }

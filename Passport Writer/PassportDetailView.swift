@@ -1,5 +1,5 @@
 //
-//  SinglePassportView.swift
+//  PassportDetailView.swift
 //  Passport Writer
 //
 //  Created by Matthew Stanciu on 2/24/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SinglePassportView: View {
+struct PassportDetailView: View {
     let passport: Passport
     
     let mono = Font
@@ -60,10 +60,10 @@ struct SinglePassportView: View {
     }
 }
 
-struct SinglePassportView_Previews: PreviewProvider {
+struct PassportDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let mockPassport = Passport(name: "Matthew", surname: "Stanciu", id: 12, secret: "Ot935wO9KEnV4fdFLGLxl", activated: false)
 
-        SinglePassportView(passport: mockPassport)
+        PassportDetailView(passport: mockPassport)
     }
 }

@@ -14,8 +14,8 @@
 		2AD3517F2B89E1F900466EA3 /* Passport_WriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD3517E2B89E1F900466EA3 /* Passport_WriterTests.swift */; };
 		2AD351892B89E1F900466EA3 /* Passport_WriterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD351882B89E1F900466EA3 /* Passport_WriterUITests.swift */; };
 		2AD3518B2B89E1F900466EA3 /* Passport_WriterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD3518A2B89E1F900466EA3 /* Passport_WriterUITestsLaunchTests.swift */; };
-		2AD351982B89E60A00466EA3 /* SinglePassportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD351972B89E60A00466EA3 /* SinglePassportView.swift */; };
 		2AD3519C2B89EBAD00466EA3 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD3519B2B89EBAD00466EA3 /* StatusView.swift */; };
+		2AD3519E2B8AD09B00466EA3 /* PassportDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD3519D2B8AD09B00466EA3 /* PassportDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,8 +46,8 @@
 		2AD351842B89E1F900466EA3 /* Passport WriterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Passport WriterUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AD351882B89E1F900466EA3 /* Passport_WriterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passport_WriterUITests.swift; sourceTree = "<group>"; };
 		2AD3518A2B89E1F900466EA3 /* Passport_WriterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passport_WriterUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		2AD351972B89E60A00466EA3 /* SinglePassportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePassportView.swift; sourceTree = "<group>"; };
 		2AD3519B2B89EBAD00466EA3 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
+		2AD3519D2B8AD09B00466EA3 /* PassportDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,10 +100,10 @@
 			children = (
 				2AD3516D2B89E1F700466EA3 /* Passport_WriterApp.swift */,
 				2AD3516F2B89E1F700466EA3 /* ContentView.swift */,
-				2AD351972B89E60A00466EA3 /* SinglePassportView.swift */,
 				2AD351712B89E1F800466EA3 /* Assets.xcassets */,
 				2AD351732B89E1F800466EA3 /* Preview Content */,
 				2AD3519B2B89EBAD00466EA3 /* StatusView.swift */,
+				2AD3519D2B8AD09B00466EA3 /* PassportDetailView.swift */,
 			);
 			path = "Passport Writer";
 			sourceTree = "<group>";
@@ -263,10 +263,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AD3519E2B8AD09B00466EA3 /* PassportDetailView.swift in Sources */,
 				2AD351702B89E1F700466EA3 /* ContentView.swift in Sources */,
 				2AD3516E2B89E1F700466EA3 /* Passport_WriterApp.swift in Sources */,
 				2AD3519C2B89EBAD00466EA3 /* StatusView.swift in Sources */,
-				2AD351982B89E60A00466EA3 /* SinglePassportView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
