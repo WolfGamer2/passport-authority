@@ -12,16 +12,29 @@ class NFCService: NSObject, NFCNDEFReaderSessionDelegate {
     var ndefMessage: NFCNDEFMessage?
     var completion: ((Result<String, Error>) -> Void)?
     
+    func constructTextPayload(string: String) -> NFCNDEFPayload? {
+        var payloadData = Data([0x02,0x65,0x6E])
+        payloadData.append(string.data(using: .utf8)!)
+
+        let payload = NFCNDEFPayload.init(
+            format: NFCTypeNameFormat.nfcWellKnown,
+            type: "T".data(using: .utf8)!,
+            identifier: Data.init(count: 0),
+            payload: payloadData,
+            chunkSize: 0)
+        return payload
+    }
+    
     func writeToTag(url: String, id: String, secret: String) {
         guard let url = URL(string: url),
               let urlRecord = NFCNDEFPayload.wellKnownTypeURIPayload(url: url),
-              let textRecord1 = NFCNDEFPayload.wellKnownTypeTextPayload(string: id, locale: Locale(identifier: "en-US")),
-              let textRecord2 = NFCNDEFPayload.wellKnownTypeTextPayload(string: secret, locale: Locale(identifier: "en-US")) else {
+              let idTextRecord = constructTextPayload(string: id),
+              let secretTextRecord = constructTextPayload(string: secret) else {
             print("Error creating NFCNDEFPayload")
             return
         }
 
-        let ndefMessage = NFCNDEFMessage(records: [urlRecord, textRecord1, textRecord2])
+        let ndefMessage = NFCNDEFMessage(records: [urlRecord, idTextRecord, secretTextRecord])
 
         self.beginSession(with: ndefMessage)
     }
