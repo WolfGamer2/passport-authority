@@ -88,7 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				2AD351A62B8AFB5200466EA3 /* Config.plist */,
-				2AD3516C2B89E1F700466EA3 /* Passport Writer */,
+				2AD3516C2B89E1F700466EA3 /* Passport Authority */,
 				2AD3517D2B89E1F900466EA3 /* Passport WriterTests */,
 				2AD351872B89E1F900466EA3 /* Passport WriterUITests */,
 				2AD3516B2B89E1F700466EA3 /* Products */,
@@ -105,7 +105,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2AD3516C2B89E1F700466EA3 /* Passport Writer */ = {
+		2AD3516C2B89E1F700466EA3 /* Passport Authority */ = {
 			isa = PBXGroup;
 			children = (
 				2A45C1A82B8BC59900FD8F10 /* Passport Writer.entitlements */,
@@ -117,7 +117,7 @@
 				2AD3519B2B89EBAD00466EA3 /* StatusView.swift */,
 				2AD3519D2B8AD09B00466EA3 /* PassportDetailView.swift */,
 			);
-			path = "Passport Writer";
+			path = "Passport Authority";
 			sourceTree = "<group>";
 		};
 		2AD351732B89E1F800466EA3 /* Preview Content */ = {
