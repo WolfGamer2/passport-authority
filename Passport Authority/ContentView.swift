@@ -51,6 +51,9 @@ struct PassportListView: View {
                     }
                 }
             }
+            .refreshable {
+                viewModel.load()
+            }
         } detail: {
             Text("Passport details")
         }.onAppear {
