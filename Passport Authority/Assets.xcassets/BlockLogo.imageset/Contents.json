@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "Purdue Hackers Logo 1024.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Purdue Hackers Logo 1025.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Purdue Hackers Logo 1026.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

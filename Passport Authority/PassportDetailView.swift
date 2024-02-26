@@ -10,6 +10,8 @@ import SwiftUI
 struct PassportDetailView: View {
     let passport: Passport
     
+    let system = Font
+        .system(size: 15)
     let mono = Font
         .system(size: 15)
         .monospaced()
@@ -36,9 +38,10 @@ struct PassportDetailView: View {
             }
             VStack(alignment: .leading, spacing: 6, content: {
                 Label(String(passport.id), systemImage: "person.text.rectangle.fill")
+                    .font(system)
                 Label(passport.secret, systemImage: "key.horizontal.fill").font(mono)
                 StatusView(activated: passport.activated, size: 16)
-            })
+            }).padding([.top], 6)
             VStack {
                 Button(action: {
                     let url = "https://id.purduehackers.com/scan?id=\(String(passport.id))&secret=\(passport.secret)"

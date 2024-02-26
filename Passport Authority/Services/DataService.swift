@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-struct Passport: Identifiable, Decodable {
+struct Passport: Identifiable, Decodable, Equatable {
     let id: Int32;
     let owner_id: Int32
     let version: Int32;

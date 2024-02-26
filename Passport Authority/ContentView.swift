@@ -37,25 +37,43 @@ struct PassportRowView: View {
     }
 }
 
+struct SkeletonView: View {
+    var body: some View {
+        List {
+            ForEach(1...3, id: \.self) { i in
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Loading").font(.headline)
+                    Text("Loading longer").font(.headline)
+                }
+            }
+        }.redacted(reason: .placeholder)
+            .navigationTitle("Passports")
+    }
+}
+
 struct PassportListView: View {
     @StateObject private var viewModel = PassportViewModel()
     
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(viewModel.passports) { passport in
-                    NavigationLink {
-                        PassportDetailView(passport: passport)
-                    } label: {
-                        PassportRowView(passport: passport)
+        NavigationStack {
+            if viewModel.passports == [] {
+                SkeletonView()
+            } else {
+                List {
+                    ForEach(viewModel.passports) { passport in
+                        NavigationLink {
+                            PassportDetailView(passport: passport)
+                                .navigationBarTitleDisplayMode(.inline)
+                        } label: {
+                            PassportRowView(passport: passport)
+                        }
                     }
                 }
+                .refreshable {
+                    viewModel.load()
+                }
+                .navigationTitle("Passports")
             }
-            .refreshable {
-                viewModel.load()
-            }
-        } detail: {
-            Text("Passport details")
         }.onAppear {
             viewModel.load()
         }

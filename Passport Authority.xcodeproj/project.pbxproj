@@ -56,6 +56,7 @@
 		2AD3519D2B8AD09B00466EA3 /* PassportDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportDetailView.swift; sourceTree = "<group>"; };
 		2AD351A42B8AF95800466EA3 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		2AD351A62B8AFB5200466EA3 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		2AE04E5A2B8C4E9400CFB8DC /* Passport-Authority-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Passport-Authority-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +109,7 @@
 		2AD3516C2B89E1F700466EA3 /* Passport Authority */ = {
 			isa = PBXGroup;
 			children = (
+				2AE04E5A2B8C4E9400CFB8DC /* Passport-Authority-Info.plist */,
 				2A45C1A82B8BC59900FD8F10 /* Passport Writer.entitlements */,
 				2AD351A32B8AF94800466EA3 /* Services */,
 				2AD3516D2B89E1F700466EA3 /* Passport_WriterApp.swift */,
@@ -464,14 +466,14 @@
 				DEVELOPMENT_TEAM = QT423GZX3C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Passport-Authority-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Passports;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NFCReaderUsageDescription = "Writing to Purdue Hackers passports & activating them";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -498,14 +500,14 @@
 				DEVELOPMENT_TEAM = QT423GZX3C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Passport-Authority-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Passports;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NFCReaderUsageDescription = "Writing to Purdue Hackers passports & activating them";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/matthewstanciu/src/xcode/Passport Writer/Passport Authority.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>
