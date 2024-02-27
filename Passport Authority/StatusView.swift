@@ -35,7 +35,7 @@ struct StatusView: View {
         if activated {
             StatusTextView(text: "Activated", size: size, textColor: Color.green, borderColor: Color.green)
         } else {
-            StatusTextView(text: "Not Activated", size: size, textColor: Color.red, borderColor: Color.red)
+            StatusTextView(text: "Not Activated", size: size, textColor: Color.yellow, borderColor: Color.yellow)
         }
     }
 }
