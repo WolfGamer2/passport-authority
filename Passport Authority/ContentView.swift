@@ -57,13 +57,27 @@ struct SkeletonView: View {
 struct PassportListView: View {
     @StateObject private var viewModel = PassportViewModel()
     
+    @State private var searchText: String = ""
+    
+    var filteredPassports: [Passport] {
+        if searchText.isEmpty {
+            return viewModel.passports
+        } else {
+            return viewModel.passports.filter { passport in
+                passport.name.lowercased().contains(searchText.lowercased()) ||
+                passport.surname.lowercased().contains(searchText.lowercased()) ||
+                "\(passport.id)".contains(searchText)
+            }
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             if viewModel.passports == [] {
                 SkeletonView()
             } else {
                 List {
-                    ForEach(viewModel.passports) { passport in
+                    ForEach(filteredPassports) { passport in
                         NavigationLink {
                             PassportDetailView(passport: passport, viewModel: viewModel)
                                 .navigationBarTitleDisplayMode(.inline)
@@ -80,6 +94,8 @@ struct PassportListView: View {
         }.onAppear {
             viewModel.load()
         }
+        .searchable(text: $searchText)
+        .autocorrectionDisabled(true)
     }
 }
 
