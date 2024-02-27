@@ -86,19 +86,21 @@ struct PassportDetailView: View {
                     }
                 }) {
                     HStack {
-                        Image(systemName: "pencil.line")
+                        Image(systemName: "bolt.fill")
                             .resizable()
-                            .frame(width: 20, height: 20)
-                        Text("Write to passport")
+                            .scaledToFit()
+                            .frame(width: 20)
+                        Text("Activate passport")
                             .fontWeight(.semibold)
                     }
                 }.padding()
-                 .background(Color.yellow)
-                 .foregroundColor(.black)
-                 .cornerRadius(8)
-                 .shadow(color: .gray, radius: 3, x: 0, y: 3)
-                 .alert(isPresented: $showErrorUpdatingAlert) {
-                     Alert(title: Text("Error activating"), message: Text("There was an error activating the passport."))
+                    .frame(maxWidth: .infinity)
+                    .background(Color.yellow)
+                    .foregroundColor(.black)
+                    .cornerRadius(2)
+                    .shadow(color: .yellow, radius: 3, x: 3, y: 3)
+                    .alert(isPresented: $showErrorUpdatingAlert) {
+                        Alert(title: Text("Error activating"), message: Text("There was an error activating the passport."))
                  }
             }.padding([.top])
             Spacer()
