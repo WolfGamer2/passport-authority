@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PassportDetailView: View {
-    let passport: Passport
+
     
     let system = Font
         .system(size: 15)
@@ -16,7 +16,16 @@ struct PassportDetailView: View {
         .system(size: 15)
         .monospaced()
     
+    @ObservedObject var viewModel: PassportViewModel
+    
     @State private var nfcService = NFCService()
+    @State private var passport: Passport
+    @State private var showErrorUpdatingAlert = false
+    
+    init(passport: Passport, viewModel: PassportViewModel) {
+        self._passport = State(initialValue: passport)
+        self._viewModel = ObservedObject(wrappedValue: viewModel)
+    }
     
     let IMAGE_HEIGHT = 235.3333333333
     
@@ -44,9 +53,32 @@ struct PassportDetailView: View {
             }).padding([.top], 6)
             VStack {
                 Button(action: {
-                    let url = "https://id.purduehackers.com/scan?id=\(String(passport.id))&secret=\(passport.secret)"
-                    
-                    nfcService.writeToTag(url: url, id: String(passport.id), secret: passport.secret)
+                    Task {
+                        do {
+                            let url = "https://id.purduehackers.com/scan?id=\(String(passport.id))&secret=\(passport.secret)"
+                            let writeSuccess = try await nfcService.writeToTag(url: url, id: String(passport.id), secret: passport.secret)
+                            
+                            if (writeSuccess) {
+                            do {
+                                if let updatedPassport = try await activatePassport(id: String(passport.id)) {
+                                    self.passport = updatedPassport
+                                    if let index = viewModel.passports.firstIndex(where: { $0.id == updatedPassport.id }) {
+                                        viewModel.passports[index] = updatedPassport
+                                        viewModel.load()
+                                    }
+                                } else {
+                                    self.showErrorUpdatingAlert = true
+                                }
+                            } catch {
+                                self.showErrorUpdatingAlert = true
+                            }
+                            } else {
+                                self.showErrorUpdatingAlert = true
+                            }
+                        } catch {
+                            self.showErrorUpdatingAlert = true
+                        }
+                    }
                 }) {
                     HStack {
                         Image(systemName: "pencil.line")
@@ -60,6 +92,9 @@ struct PassportDetailView: View {
                  .foregroundColor(.black)
                  .cornerRadius(8)
                  .shadow(color: .gray, radius: 3, x: 0, y: 3)
+                 .alert(isPresented: $showErrorUpdatingAlert) {
+                     Alert(title: Text("Error activating"), message: Text("There was an error activating the passport."))
+                 }
             }.padding([.top])
             Spacer()
         }).padding([.horizontal], 24)
@@ -70,7 +105,9 @@ struct PassportDetailView_Previews: PreviewProvider {
     static var previews: some View {
         
         let mockPassport = Passport(id: 12, owner_id: 12, version: 0, surname: "Stanciu", name: "Matthew", date_of_birth: "2002-02-17T00:00:00.000Z", date_of_issue: "2024-02-09T00:00:00.000Z", place_of_origin: "The woods", secret: "cUWnYREMmNdvOQI2M9uhTczeRStj0fmq", activated: true)
+        
+        let mockViewModel = PassportViewModel()
 
-        PassportDetailView(passport: mockPassport)
+        PassportDetailView(passport: mockPassport, viewModel: mockViewModel)
     }
 }

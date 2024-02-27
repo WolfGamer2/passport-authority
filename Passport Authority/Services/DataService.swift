@@ -52,3 +52,28 @@ func fetchData(completion: @escaping ([Passport]?) -> Void) {
         }
     }
 }
+
+func activatePassport(id: String) async throws -> Passport? {
+    guard let token = getAPIToken() else {
+        throw NSError(domain: "me.matthewstanciu.Passport-Writer", code: 0, userInfo: [NSLocalizedDescriptionKey: "Cannot read API token"])
+    }
+    
+    let headers: HTTPHeaders = [
+        "Authorization": "Bearer \(token)",
+        "Accept": "application/json"
+    ]
+    
+    let parameters: [String: Any] = ["id": id]
+    let url = "https://api.purduehackers.com/passports/activate"
+    
+    do {
+        let response = try await AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+            .validate()
+            .serializingDecodable(Passport.self)
+            .value
+        return response
+    } catch {
+        print(error)
+        throw error
+    }
+}

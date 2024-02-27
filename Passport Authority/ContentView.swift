@@ -62,7 +62,7 @@ struct PassportListView: View {
                 List {
                     ForEach(viewModel.passports) { passport in
                         NavigationLink {
-                            PassportDetailView(passport: passport)
+                            PassportDetailView(passport: passport, viewModel: viewModel)
                                 .navigationBarTitleDisplayMode(.inline)
                         } label: {
                             PassportRowView(passport: passport)

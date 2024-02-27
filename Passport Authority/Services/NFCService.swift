@@ -10,7 +10,7 @@ import CoreNFC
 class NFCService: NSObject, NFCNDEFReaderSessionDelegate {
     var session: NFCNDEFReaderSession?
     var ndefMessage: NFCNDEFMessage?
-    var completion: ((Result<String, Error>) -> Void)?
+    private var completion: ((Result<Bool, Error>) -> Void)?
     
     func constructTextPayload(string: String) -> NFCNDEFPayload? {
         var payloadData = Data([0x02,0x65,0x6E])
@@ -25,18 +25,27 @@ class NFCService: NSObject, NFCNDEFReaderSessionDelegate {
         return payload
     }
     
-    func writeToTag(url: String, id: String, secret: String) {
+    func writeToTag(url: String, id: String, secret: String) async throws -> Bool {
         guard let url = URL(string: url),
               let urlRecord = NFCNDEFPayload.wellKnownTypeURIPayload(url: url),
               let idTextRecord = constructTextPayload(string: id),
               let secretTextRecord = constructTextPayload(string: secret) else {
             print("Error creating NFCNDEFPayload")
-            return
+            return false
         }
 
         let ndefMessage = NFCNDEFMessage(records: [urlRecord, idTextRecord, secretTextRecord])
+        
+        return try await withCheckedThrowingContinuation { [weak self] continuation in
+            var isContinuationHandled = false
 
-        self.beginSession(with: ndefMessage)
+            self?.completion = { result in
+                guard !isContinuationHandled else { return }
+                isContinuationHandled = true
+                continuation.resume(with: result)
+            }
+            self?.beginSession(with: ndefMessage)
+        }
     }
     
     private func beginSession(with message: NFCNDEFMessage) {
@@ -59,34 +68,40 @@ class NFCService: NSObject, NFCNDEFReaderSessionDelegate {
     func readerSession(_ session: NFCNDEFReaderSession, didDetect tags: [NFCNDEFTag]) {
         guard let tag = tags.first else {
             session.invalidate(errorMessage: "No NFC tag detected.")
+            self.completion?(.failure(NSError(domain: "NFCServiceError", code: 1, userInfo: [NSLocalizedDescriptionKey: "No NFC tag detected"])))
             return
         }
         
         session.connect(to: tag) { (error) in
             if let error = error {
                 session.invalidate(errorMessage: "Connection to the NFC tag failed: \(error.localizedDescription)")
+                self.completion?(.failure(NSError(domain: "NFCServiceError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Connection to the NFC tag failed: \(error.localizedDescription)"])))
                 return
             }
             
             tag.queryNDEFStatus() { (status: NFCNDEFStatus, capacity: Int, error: Error?) in
                 if error != nil {
-                    session.invalidate(errorMessage: "Fail to determine NDEF status.  Please try again.")
+                    session.invalidate(errorMessage: "Fail to determine NDEF status. Please try again.")
+                    self.completion?(.failure(NSError(domain: "NFCServiceError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Failed to determine NDEF status. Please try again."])))
                     return
                 }
                 
                 if status == .readOnly {
-                    session.invalidate(errorMessage: "Tag is not writable.")
+                    session.invalidate(errorMessage: "Tag is read-only.")
+                    self.completion?(.failure(NSError(domain: "NFCServiceError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Tag is read-only."])))
                 } else if status == .readWrite {
                     tag.writeNDEF(self.ndefMessage!) { (error: Error?) in
                         if error != nil {
                             session.invalidate(errorMessage: "Write failed. Please try again.")
+                            self.completion?(.failure(NSError(domain: "NFCServiceError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Write failed. Please try again."])))
                         } else {
-//                            session.alertMessage = "Passport updated!"
                             session.invalidate()
+                            self.completion?(.success(true))
                         }
                     }
                 } else {
                     session.invalidate(errorMessage: "Tag is not NDEF formatted.")
+                    self.completion?(.failure(NSError(domain: "NFCServiceError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Tag is not NDEF formatted."])))
                 }
             }
         }
