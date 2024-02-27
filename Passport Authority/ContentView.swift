@@ -27,8 +27,11 @@ struct PassportRowView: View {
             Text("\(passport.name) \(passport.surname)")
                 .foregroundColor(.primary)
                 .font(.headline)
-            HStack(spacing: 22) {
-                Label(String(passport.id), systemImage: "person.text.rectangle.fill")
+            HStack(spacing: 16) {
+                HStack(spacing: 4) {
+                    Image(systemName: "person.text.rectangle.fill")
+                    Text(String(passport.id))
+                }
                 StatusView(activated: passport.activated, size: 12)
             }
             .foregroundColor(.secondary)
@@ -40,7 +43,7 @@ struct PassportRowView: View {
 struct SkeletonView: View {
     var body: some View {
         List {
-            ForEach(1...3, id: \.self) { i in
+            ForEach(1...11, id: \.self) { i in
                 VStack(alignment: .leading, spacing: 3) {
                     Text("Loading").font(.headline)
                     Text("Loading longer").font(.headline)
