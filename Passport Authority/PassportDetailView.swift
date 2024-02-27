@@ -49,59 +49,61 @@ struct PassportDetailView: View {
                 Label(String(passport.id), systemImage: "person.text.rectangle.fill")
                     .font(system)
                 Label(passport.secret, systemImage: "key.horizontal.fill").font(mono)
-                StatusView(activated: passport.activated, size: 16)
+                StatusView(activated: passport.activated, size: 16).padding([.top], 6)
             }).padding([.top], 6)
             VStack {
-                Button(action: {
-                    Task {
-                        do {
-                            let url = "https://id.purduehackers.com/scan?id=\(String(passport.id))&secret=\(passport.secret)"
-                            let writeSuccess = try await nfcService.writeToTag(url: url, id: String(passport.id), secret: passport.secret)
-                            
-                            switch writeSuccess {
-                            case .success:
-                                do {
-                                    if let updatedPassport = try await activatePassport(id: String(passport.id)) {
-                                        self.passport = updatedPassport
-                                        if let index = viewModel.passports.firstIndex(where: { $0.id == updatedPassport.id }) {
-                                            viewModel.passports[index] = updatedPassport
-                                            viewModel.load()
+                if (!passport.activated) {
+                    Button(action: {
+                        Task {
+                            do {
+                                let url = "https://id.purduehackers.com/scan?id=\(String(passport.id))&secret=\(passport.secret)"
+                                let writeSuccess = try await nfcService.writeToTag(url: url, id: String(passport.id), secret: passport.secret)
+                                
+                                switch writeSuccess {
+                                case .success:
+                                    do {
+                                        if let updatedPassport = try await activatePassport(id: String(passport.id)) {
+                                            self.passport = updatedPassport
+                                            if let index = viewModel.passports.firstIndex(where: { $0.id == updatedPassport.id }) {
+                                                viewModel.passports[index] = updatedPassport
+                                                viewModel.load()
+                                            }
+                                        } else {
+                                            self.showErrorUpdatingAlert = true
                                         }
-                                    } else {
+                                    } catch {
                                         self.showErrorUpdatingAlert = true
                                     }
-                                } catch {
+                                case .canceledByUser:
+                                    print("NFC write canceled by user")
+                                case .error(let errorMessage):
+                                    print("Error writing to NFC: \(errorMessage)")
                                     self.showErrorUpdatingAlert = true
                                 }
-                            case .canceledByUser:
-                                print("NFC write canceled by user")
-                            case .error(let errorMessage):
-                                print("Error writing to NFC: \(errorMessage)")
+                            } catch {
+                                print("here")
                                 self.showErrorUpdatingAlert = true
                             }
-                        } catch {
-                            print("here")
-                            self.showErrorUpdatingAlert = true
                         }
-                    }
-                }) {
-                    HStack {
-                        Image(systemName: "bolt.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20)
-                        Text("Activate passport")
-                            .fontWeight(.semibold)
-                    }
-                }.padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.yellow)
-                    .foregroundColor(.black)
-                    .cornerRadius(2)
-                    .shadow(color: .yellow, radius: 3, x: 3, y: 3)
-                    .alert(isPresented: $showErrorUpdatingAlert) {
-                        Alert(title: Text("Error activating"), message: Text("There was an error activating the passport."))
-                 }
+                    }) {
+                        HStack {
+                            Image(systemName: "bolt.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20)
+                            Text("Activate passport")
+                                .fontWeight(.semibold)
+                        }
+                    }.padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.yellow)
+                        .foregroundColor(.black)
+                        .cornerRadius(2)
+                        .shadow(color: .yellow, radius: 3, x: 3, y: 3)
+                        .alert(isPresented: $showErrorUpdatingAlert) {
+                            Alert(title: Text("Error activating"), message: Text("There was an error activating the passport."))
+                     }
+                }
             }.padding([.top])
             Spacer()
         }).padding([.horizontal], 24)
@@ -111,7 +113,7 @@ struct PassportDetailView: View {
 struct PassportDetailView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let mockPassport = Passport(id: 12, owner_id: 12, version: 0, surname: "Stanciu", name: "Matthew", date_of_birth: "2002-02-17T00:00:00.000Z", date_of_issue: "2024-02-09T00:00:00.000Z", place_of_origin: "The woods", secret: "cUWnYREMmNdvOQI2M9uhTczeRStj0fmq", activated: true)
+        let mockPassport = Passport(id: 12, owner_id: 12, version: 0, surname: "Stanciu", name: "Matthew", date_of_birth: "2002-02-17T00:00:00.000Z", date_of_issue: "2024-02-09T00:00:00.000Z", place_of_origin: "The woods", secret: "cUWnYREMmNdvOQI2M9uhTczeRStj0fmq", activated: false)
         
         let mockViewModel = PassportViewModel()
 
