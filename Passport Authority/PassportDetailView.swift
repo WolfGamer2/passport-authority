@@ -58,24 +58,29 @@ struct PassportDetailView: View {
                             let url = "https://id.purduehackers.com/scan?id=\(String(passport.id))&secret=\(passport.secret)"
                             let writeSuccess = try await nfcService.writeToTag(url: url, id: String(passport.id), secret: passport.secret)
                             
-                            if (writeSuccess) {
-                            do {
-                                if let updatedPassport = try await activatePassport(id: String(passport.id)) {
-                                    self.passport = updatedPassport
-                                    if let index = viewModel.passports.firstIndex(where: { $0.id == updatedPassport.id }) {
-                                        viewModel.passports[index] = updatedPassport
-                                        viewModel.load()
+                            switch writeSuccess {
+                            case .success:
+                                do {
+                                    if let updatedPassport = try await activatePassport(id: String(passport.id)) {
+                                        self.passport = updatedPassport
+                                        if let index = viewModel.passports.firstIndex(where: { $0.id == updatedPassport.id }) {
+                                            viewModel.passports[index] = updatedPassport
+                                            viewModel.load()
+                                        }
+                                    } else {
+                                        self.showErrorUpdatingAlert = true
                                     }
-                                } else {
+                                } catch {
                                     self.showErrorUpdatingAlert = true
                                 }
-                            } catch {
-                                self.showErrorUpdatingAlert = true
-                            }
-                            } else {
+                            case .canceledByUser:
+                                print("NFC write canceled by user")
+                            case .error(let errorMessage):
+                                print("Error writing to NFC: \(errorMessage)")
                                 self.showErrorUpdatingAlert = true
                             }
                         } catch {
+                            print("here")
                             self.showErrorUpdatingAlert = true
                         }
                     }

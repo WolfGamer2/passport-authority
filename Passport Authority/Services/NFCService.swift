@@ -7,6 +7,12 @@
 
 import CoreNFC
 
+enum NFCWriteResult {
+    case success
+    case canceledByUser
+    case error(String)
+}
+
 class NFCService: NSObject, NFCNDEFReaderSessionDelegate {
     var session: NFCNDEFReaderSession?
     var ndefMessage: NFCNDEFMessage?
@@ -25,24 +31,34 @@ class NFCService: NSObject, NFCNDEFReaderSessionDelegate {
         return payload
     }
     
-    func writeToTag(url: String, id: String, secret: String) async throws -> Bool {
+    func writeToTag(url: String, id: String, secret: String) async throws -> NFCWriteResult {
         guard let url = URL(string: url),
               let urlRecord = NFCNDEFPayload.wellKnownTypeURIPayload(url: url),
               let idTextRecord = constructTextPayload(string: id),
               let secretTextRecord = constructTextPayload(string: secret) else {
             print("Error creating NFCNDEFPayload")
-            return false
+            return .error("Error creating NFCNDEFPayload")
         }
 
         let ndefMessage = NFCNDEFMessage(records: [urlRecord, idTextRecord, secretTextRecord])
         
-        return try await withCheckedThrowingContinuation { [weak self] continuation in
+        return await withCheckedContinuation { [weak self] continuation in
             var isContinuationHandled = false
 
             self?.completion = { result in
                 guard !isContinuationHandled else { return }
                 isContinuationHandled = true
-                continuation.resume(with: result)
+                switch result {
+                case .success:
+                    continuation.resume(returning: .success)
+                case .failure(let error):
+                    let nsError = error as NSError
+                    if nsError.code == 200 {
+                        continuation.resume(returning: .canceledByUser)
+                    } else {
+                        continuation.resume(returning: .error(nsError.localizedDescription))
+                    }
+                }
             }
             self?.beginSession(with: ndefMessage)
         }
