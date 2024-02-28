@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ConfettiSwiftUI
 
 struct PassportDetailView: View {
 
@@ -21,6 +22,7 @@ struct PassportDetailView: View {
     @State private var nfcService = NFCService()
     @State private var passport: Passport
     @State private var showErrorUpdatingAlert = false
+    @State private var confettiCounter = 0
     
     init(passport: Passport, viewModel: PassportViewModel) {
         self._passport = State(initialValue: passport)
@@ -67,6 +69,8 @@ struct PassportDetailView: View {
                                             if let index = viewModel.passports.firstIndex(where: { $0.id == updatedPassport.id }) {
                                                 viewModel.passports[index] = updatedPassport
                                                 viewModel.load()
+                                                
+                                                confettiCounter += 1
                                             }
                                         } else {
                                             self.showErrorUpdatingAlert = true
@@ -81,7 +85,6 @@ struct PassportDetailView: View {
                                     self.showErrorUpdatingAlert = true
                                 }
                             } catch {
-                                print("here")
                                 self.showErrorUpdatingAlert = true
                             }
                         }
@@ -94,7 +97,8 @@ struct PassportDetailView: View {
                             Text("Activate passport")
                                 .fontWeight(.semibold)
                         }
-                    }.padding()
+                    }
+                    .padding()
                         .frame(maxWidth: .infinity)
                         .background(Color.yellow)
                         .foregroundColor(.black)
@@ -104,9 +108,11 @@ struct PassportDetailView: View {
                             Alert(title: Text("Error activating"), message: Text("There was an error activating the passport."))
                      }
                 }
-            }.padding([.top])
+            }                   .padding([.top])
             Spacer()
-        }).padding([.horizontal], 24)
+        })
+        .padding([.horizontal], 24)
+        .confettiCannon(counter: $confettiCounter, num: 50, repetitions: 4, repetitionInterval: 0.2)
     }
 }
 

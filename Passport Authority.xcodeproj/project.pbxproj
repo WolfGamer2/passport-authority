@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A45C1AC2B8BC6AA00FD8F10 /* NFCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45C1AB2B8BC6AA00FD8F10 /* NFCService.swift */; };
+		2A5F548B2B8EB96600E7F977 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5F548A2B8EB96600E7F977 /* ConfettiSwiftUI */; };
 		2AD3516E2B89E1F700466EA3 /* Passport_WriterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD3516D2B89E1F700466EA3 /* Passport_WriterApp.swift */; };
 		2AD351702B89E1F700466EA3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD3516F2B89E1F700466EA3 /* ContentView.swift */; };
 		2AD351722B89E1F800466EA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AD351712B89E1F800466EA3 /* Assets.xcassets */; };
@@ -64,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A5F548B2B8EB96600E7F977 /* ConfettiSwiftUI in Frameworks */,
 				2AD351A12B8AF84F00466EA3 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -174,6 +176,7 @@
 			name = "Passport Authority";
 			packageProductDependencies = (
 				2AD351A02B8AF84F00466EA3 /* Alamofire */,
+				2A5F548A2B8EB96600E7F977 /* ConfettiSwiftUI */,
 			);
 			productName = "Passport Writer";
 			productReference = 2AD3516A2B89E1F700466EA3 /* Passport Authority.app */;
@@ -249,6 +252,7 @@
 			mainGroup = 2AD351612B89E1F700466EA3;
 			packageReferences = (
 				2AD3519F2B8AF84F00466EA3 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				2A5F54892B8EB96600E7F977 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 			);
 			productRefGroup = 2AD3516B2B89E1F700466EA3 /* Products */;
 			projectDirPath = "";
@@ -640,6 +644,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2A5F54892B8EB96600E7F977 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
 		2AD3519F2B8AF84F00466EA3 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -651,6 +663,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2A5F548A2B8EB96600E7F977 /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A5F54892B8EB96600E7F977 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
+		};
 		2AD351A02B8AF84F00466EA3 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2AD3519F2B8AF84F00466EA3 /* XCRemoteSwiftPackageReference "Alamofire" */;
