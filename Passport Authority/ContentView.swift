@@ -68,6 +68,17 @@ struct PassportListView: View {
         case notActivated = "Not Activated"
         
         var id: String { self.rawValue }
+        
+        var icon: String {
+            switch self {
+            case .all:
+                "bolt"
+            case .activated:
+                "bolt.fill"
+            case .notActivated:
+                "bolt.slash.fill"
+            }
+        }
     }
     
     @StateObject private var viewModel = PassportViewModel()
@@ -107,73 +118,11 @@ struct PassportListView: View {
         }
     }
     
-    var sortingButton: some View {
-        Button(action: {
-            sortOption = sortOption == .idAscending ? .idDescending : .idAscending
-        }) {
-            Label("Sort", systemImage: sortOption == .idAscending ? "arrow.up" : "arrow.down")
-                .labelStyle(.titleAndIcon)
-                .padding([.horizontal], 8)
-                .padding([.vertical], 4)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(sortOption == .idAscending ? .secondary : .primary, lineWidth: 4)
-                )
-                .background(.black)
-                .foregroundColor(.white)
-                .cornerRadius(8)
-        }
-    }
-    
-    var activationFilterMenu: some View {
-        Menu {
-            Picker("Status", selection: $statusOption) {
-                ForEach(StatusOption.allCases, id: \.self) { option in
-                    Text(option.rawValue).tag(option)
-                }
-            }
-        } label: {
-            Label("Status", systemImage: "bolt.fill")
-                .labelStyle(.titleAndIcon)
-                            .padding([.horizontal], 8)
-                            .padding([.vertical], 4)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(activationColor, lineWidth: 4)
-                )
-        }.background(.black)
-            .foregroundColor(.white)
-            .cornerRadius(8)
-    }
-    
-    var resetButton: some View {
-        Button(action: {
-            sortOption = .idAscending
-            statusOption = .all
-        }) {
-            Image(systemName: "arrow.circlepath")
-        }
-        .background(.black)
-        .padding([.horizontal], 8)
-        .padding([.vertical], 4)
-        .foregroundColor(.white)
-        .cornerRadius(8)
-        .overlay(
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(.secondary, lineWidth: 2)
-        )
-    }
-    
     var body: some View {
         NavigationStack {
             if viewModel.passports == [] {
                 SkeletonView()
             } else {
-                HStack {
-                    sortingButton
-                    activationFilterMenu
-                    resetButton
-                }
                 List {
                     ForEach(filteredPassports) { passport in
                         NavigationLink {
@@ -188,6 +137,18 @@ struct PassportListView: View {
                     viewModel.load()
                 }
                 .navigationTitle("Passports")
+                .toolbar {
+                    ToolbarItemGroup {
+                        Button("Sort", image: ImageResource(name: sortOption == .idAscending ? "NumberUp" : "NumberDown", bundle: Bundle.main), action: {
+                            sortOption = sortOption == .idAscending ? .idDescending : .idAscending
+                        })
+                        Picker("Activation", systemImage: statusOption.icon, selection: $statusOption, content: {
+                            ForEach(StatusOption.allCases, id: \.self) { option in
+                                Label(option.rawValue, systemImage: option.icon).tag(option)
+                            }
+                        })
+                    }
+                }
             }
         }.onAppear {
             viewModel.load()
