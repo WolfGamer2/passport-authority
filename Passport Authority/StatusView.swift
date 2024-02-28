@@ -18,7 +18,6 @@ struct StatusTextView: View {
             .font(.system(size: size))
             .padding(EdgeInsets(top: 2, leading: 4, bottom: 2, trailing: 4))
             .foregroundColor(textColor)
-            .background(Color.black)
             .clipShape(RoundedRectangle(cornerRadius: 5))
             .overlay(
                 RoundedRectangle(cornerRadius: 5)
