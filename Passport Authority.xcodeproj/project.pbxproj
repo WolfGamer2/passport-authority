@@ -20,7 +20,7 @@
 		2AD3519E2B8AD09B00466EA3 /* PassportDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD3519D2B8AD09B00466EA3 /* PassportDetailView.swift */; };
 		2AD351A12B8AF84F00466EA3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2AD351A02B8AF84F00466EA3 /* Alamofire */; };
 		2AD351A52B8AF95800466EA3 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD351A42B8AF95800466EA3 /* DataService.swift */; };
-		2AD351A72B8AFB5200466EA3 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AD351A62B8AFB5200466EA3 /* Config.plist */; };
+		E4AA5E472B8FBA2C0042A90F /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4AA5E462B8FBA2C0042A90F /* Config.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,8 +56,8 @@
 		2AD3519B2B89EBAD00466EA3 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		2AD3519D2B8AD09B00466EA3 /* PassportDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportDetailView.swift; sourceTree = "<group>"; };
 		2AD351A42B8AF95800466EA3 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
-		2AD351A62B8AFB5200466EA3 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		2AE04E5A2B8C4E9400CFB8DC /* Passport-Authority-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Passport-Authority-Info.plist"; sourceTree = SOURCE_ROOT; };
+		E4AA5E462B8FBA2C0042A90F /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +90,7 @@
 		2AD351612B89E1F700466EA3 = {
 			isa = PBXGroup;
 			children = (
-				2AD351A62B8AFB5200466EA3 /* Config.plist */,
+				E4AA5E462B8FBA2C0042A90F /* Config.plist */,
 				2AD3516C2B89E1F700466EA3 /* Passport Authority */,
 				2AD3517D2B89E1F900466EA3 /* Passport AuthorityTests */,
 				2AD351872B89E1F900466EA3 /* Passport AuthorityUITests */,
@@ -271,7 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2AD351752B89E1F800466EA3 /* Preview Assets.xcassets in Resources */,
-				2AD351A72B8AFB5200466EA3 /* Config.plist in Resources */,
+				E4AA5E472B8FBA2C0042A90F /* Config.plist in Resources */,
 				2AD351722B89E1F800466EA3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -467,7 +467,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Passport Authority/Preview Content\"";
-				DEVELOPMENT_TEAM = QT423GZX3C;
+				DEVELOPMENT_TEAM = Z74U5327X4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Passport-Authority-Info.plist";
@@ -501,7 +501,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Passport Authority/Preview Content\"";
-				DEVELOPMENT_TEAM = QT423GZX3C;
+				DEVELOPMENT_TEAM = Z74U5327X4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Passport-Authority-Info.plist";

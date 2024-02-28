@@ -55,15 +55,62 @@ struct SkeletonView: View {
 }
 
 struct PassportListView: View {
+    enum SortOption: String, CaseIterable {
+        case idAscending = "Ascending"
+        case idDescending = "Descending"
+        
+        var id: String { self.rawValue }
+    }
+    
+    enum StatusOption: String, CaseIterable {
+        case all = "All"
+        case activated = "Activated"
+        case notActivated = "Not Activated"
+        
+        var id: String { self.rawValue }
+        
+        var icon: String {
+            switch self {
+            case .all:
+                "bolt"
+            case .activated:
+                "bolt.fill"
+            case .notActivated:
+                "bolt.slash.fill"
+            }
+        }
+    }
+    
     @StateObject private var viewModel = PassportViewModel()
     
     @State private var searchText: String = ""
+    @State private var sortOption: SortOption = .idAscending
+    @State private var statusOption: StatusOption = .all
+    @State private var activationColor: Color = .secondary
     
     var filteredPassports: [Passport] {
+        var viewModelPassports = viewModel.passports
+        
+        switch sortOption {
+        case .idAscending:
+            viewModelPassports = viewModel.passports.sorted { $0.id < $1.id }
+        case .idDescending:
+            viewModelPassports = viewModel.passports.sorted { $0.id > $1.id }
+        }
+        
+        switch statusOption {
+        case .activated:
+            viewModelPassports = viewModelPassports.filter { $0.activated }
+        case .notActivated:
+            viewModelPassports = viewModelPassports.filter { !$0.activated }
+        case .all:
+            break
+        }
+        
         if searchText.isEmpty {
-            return viewModel.passports
+            return viewModelPassports
         } else {
-            return viewModel.passports.filter { passport in
+            return viewModelPassports.filter { passport in
                 passport.name.lowercased().contains(searchText.lowercased()) ||
                 passport.surname.lowercased().contains(searchText.lowercased()) ||
                 "\(passport.id)".contains(searchText)
@@ -90,12 +137,34 @@ struct PassportListView: View {
                     viewModel.load()
                 }
                 .navigationTitle("Passports")
+                .toolbar {
+                    ToolbarItemGroup {
+                        Button("Sort", image: ImageResource(name: sortOption == .idAscending ? "NumberUp" : "NumberDown", bundle: Bundle.main), action: {
+                            sortOption = sortOption == .idAscending ? .idDescending : .idAscending
+                        })
+                        Picker("Activation", systemImage: statusOption.icon, selection: $statusOption, content: {
+                            ForEach(StatusOption.allCases, id: \.self) { option in
+                                Label(option.rawValue, systemImage: option.icon).tag(option)
+                            }
+                        })
+                    }
+                }
             }
         }.onAppear {
             viewModel.load()
         }
         .searchable(text: $searchText)
         .autocorrectionDisabled(true)
+        .onChange(of: statusOption) {
+            switch statusOption {
+            case .activated:
+                activationColor = .green
+            case .notActivated:
+                activationColor = .yellow
+            case .all:
+                activationColor = .secondary
+            }
+        }
     }
 }
 
