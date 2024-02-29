@@ -131,8 +131,10 @@ struct PassportListView: View {
                         } label: {
                             PassportRowView(passport: passport)
                         }
+                        .id(passport.id)
                     }
                 }
+                .animation(.easeInOut, value: filteredPassports)
                 .refreshable {
                     viewModel.load()
                 }
