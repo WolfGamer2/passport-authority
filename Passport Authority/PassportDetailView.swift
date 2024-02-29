@@ -38,7 +38,7 @@ struct PassportDetailView: View {
                 .padding([.bottom], 10)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            AsyncImage(url: URL(string: "https://pub-84077b41cf284cf3a74ef394a9226674.r2.dev/\(String(passport.id)).png")) { image in
+            AsyncImage(url: URL(string: "https://data.passports.purduehackers.com/\(String(passport.id)).png")) { image in
                 image.resizable()
                     .scaledToFit()
                     .clipShape(RoundedRectangle(cornerRadius: 8))
