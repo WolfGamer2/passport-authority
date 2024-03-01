@@ -6,18 +6,19 @@
 //
 
 import SwiftUI
+import AuthenticationServices
 
-class PassportViewModel: ObservableObject {
-    @Published var passports = [Passport]()
-    
-    func load() {
-        fetchData { [weak self] data in
-            DispatchQueue.main.async {
-                self?.passports = data ?? []
-            }
-        }
-    }
-}
+//class PassportViewModel: ObservableObject {
+//    @Published var passports = [Passport]()
+//    
+//    func load() {
+//        fetchData { [weak self] data in
+//            DispatchQueue.main.async {
+//                self?.passports = data ?? []
+//            }
+//        }
+//    }
+//}
 
 struct PassportRowView: View {
     var passport: Passport
@@ -81,21 +82,21 @@ struct PassportListView: View {
         }
     }
     
-    @StateObject private var viewModel = PassportViewModel()
+    @State private var passports = [Passport]()
+    @State private var showAuthSheet = false
     
     @State private var searchText: String = ""
     @State private var sortOption: SortOption = .idAscending
     @State private var statusOption: StatusOption = .all
-    @State private var activationColor: Color = .secondary
     
     var filteredPassports: [Passport] {
-        var viewModelPassports = viewModel.passports
+        var viewModelPassports = passports
         
         switch sortOption {
         case .idAscending:
-            viewModelPassports = viewModel.passports.sorted { $0.id < $1.id }
+            viewModelPassports = passports.sorted { $0.id < $1.id }
         case .idDescending:
-            viewModelPassports = viewModel.passports.sorted { $0.id > $1.id }
+            viewModelPassports = passports.sorted { $0.id > $1.id }
         }
         
         switch statusOption {
@@ -120,13 +121,17 @@ struct PassportListView: View {
     
     var body: some View {
         NavigationStack {
-            if viewModel.passports == [] {
+            if passports == [] {
                 SkeletonView()
             } else {
                 List {
                     ForEach(filteredPassports) { passport in
                         NavigationLink {
-                            PassportDetailView(passport: passport, viewModel: viewModel)
+                            PassportDetailView(passport: passport, onUpdate: {
+                                Task {
+                                    await refreshData()
+                                }
+                            })
                                 .navigationBarTitleDisplayMode(.inline)
                         } label: {
                             PassportRowView(passport: passport)
@@ -136,7 +141,7 @@ struct PassportListView: View {
                 }
                 .animation(.easeInOut, value: filteredPassports)
                 .refreshable {
-                    viewModel.load()
+                    await refreshData()
                 }
                 .navigationTitle("Passports")
                 .toolbar {
@@ -152,20 +157,18 @@ struct PassportListView: View {
                     }
                 }
             }
-        }.onAppear {
-            viewModel.load()
+        }.task {
+            await refreshData()
         }
         .searchable(text: $searchText)
         .autocorrectionDisabled(true)
-        .onChange(of: statusOption) {
-            switch statusOption {
-            case .activated:
-                activationColor = .green
-            case .notActivated:
-                activationColor = .yellow
-            case .all:
-                activationColor = .secondary
-            }
+    }
+    
+    func refreshData() async {
+        do {
+            passports = try await fetchData()
+        } catch {
+            print("Network error: \(error)")
         }
     }
 }

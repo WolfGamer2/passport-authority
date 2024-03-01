@@ -21,6 +21,10 @@ struct Passport: Identifiable, Decodable, Equatable {
     let activated: Bool;
 }
 
+enum NetworkError: Error {
+    case noApiToken
+}
+
 func getAPIToken() -> String? {
     guard let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
           let plist = NSDictionary(contentsOfFile: path),
@@ -31,10 +35,31 @@ func getAPIToken() -> String? {
     return value
 }
 
-func fetchData(completion: @escaping ([Passport]?) -> Void) {
+//func fetchData(completion: @escaping ([Passport]?) -> Void) {
+//    guard let token = getAPIToken() else {
+//        completion(nil)
+//        return
+//    }
+//    
+//    let headers: HTTPHeaders = [
+//        "Authorization": "Bearer \(token)",
+//        "Accept": "application/json"
+//    ]
+//    
+//    AF.request("https://api.purduehackers.com/passports", headers: headers).responseDecodable(of: [Passport].self) { response in
+//        switch response.result {
+//        case .success(let data):
+//            completion(data)
+//        case .failure(let error):
+//            print(error)
+//            completion(nil)
+//        }
+//    }
+//}
+
+func fetchData() async throws -> [Passport] {
     guard let token = getAPIToken() else {
-        completion(nil)
-        return
+        throw NetworkError.noApiToken
     }
     
     let headers: HTTPHeaders = [
@@ -42,15 +67,20 @@ func fetchData(completion: @escaping ([Passport]?) -> Void) {
         "Accept": "application/json"
     ]
     
-    AF.request("https://api.purduehackers.com/passports", headers: headers).responseDecodable(of: [Passport].self) { response in
-        switch response.result {
-        case .success(let data):
-            completion(data)
-        case .failure(let error):
-            print(error)
-            completion(nil)
-        }
-    }
+    let resp = AF.request("https://api.purduehackers.com/passports", headers: headers)
+    
+    return try await resp.serializingDecodable([Passport].self, automaticallyCancelling: true).result.get()
+
+//
+//    AF.request("https://api.purduehackers.com/passports", headers: headers).responseDecodable(of: [Passport].self) { response in
+//        switch response.result {
+//        case .success(let data):
+//            completion(data)
+//        case .failure(let error):
+//            print(error)
+//            completion(nil)
+//        }
+//    }
 }
 
 func activatePassport(id: String) async throws -> Passport? {

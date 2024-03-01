@@ -17,16 +17,16 @@ struct PassportDetailView: View {
         .system(size: 15)
         .monospaced()
     
-    @ObservedObject var viewModel: PassportViewModel
+    let shouldUpdate: () -> Void
     
     @State private var nfcService = NFCService()
     @State private var passport: Passport
     @State private var showErrorUpdatingAlert = false
     @State private var confettiCounter = 0
     
-    init(passport: Passport, viewModel: PassportViewModel) {
+    init(passport: Passport, onUpdate: @escaping () -> Void) {
         self._passport = State(initialValue: passport)
-        self._viewModel = ObservedObject(wrappedValue: viewModel)
+        self.shouldUpdate = onUpdate
     }
     
     let IMAGE_HEIGHT = 235.3333333333
@@ -66,12 +66,8 @@ struct PassportDetailView: View {
                                     do {
                                         if let updatedPassport = try await activatePassport(id: String(passport.id)) {
                                             self.passport = updatedPassport
-                                            if let index = viewModel.passports.firstIndex(where: { $0.id == updatedPassport.id }) {
-                                                viewModel.passports[index] = updatedPassport
-                                                viewModel.load()
-                                                
-                                                confettiCounter += 1
-                                            }
+                                            shouldUpdate()
+                                            confettiCounter += 1
                                         } else {
                                             self.showErrorUpdatingAlert = true
                                         }
@@ -120,9 +116,7 @@ struct PassportDetailView_Previews: PreviewProvider {
     static var previews: some View {
         
         let mockPassport = Passport(id: 12, owner_id: 12, version: 0, surname: "Stanciu", name: "Matthew", date_of_birth: "2002-02-17T00:00:00.000Z", date_of_issue: "2024-02-09T00:00:00.000Z", place_of_origin: "The woods", secret: "cUWnYREMmNdvOQI2M9uhTczeRStj0fmq", activated: false)
-        
-        let mockViewModel = PassportViewModel()
 
-        PassportDetailView(passport: mockPassport, viewModel: mockViewModel)
+        PassportDetailView(passport: mockPassport, onUpdate: {})
     }
 }
