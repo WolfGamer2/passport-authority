@@ -26,15 +26,37 @@ struct StatusTextView: View {
     }
 }
 
+enum ActivationState {
+    case notActivated, activated, superseded
+    
+    var text: String {
+        switch self {
+        case .notActivated:
+            return "Not Activated"
+        case .activated:
+            return "Activated"
+        case .superseded:
+            return "Superseded"
+        }
+    }
+    
+    var color: Color {
+        switch self {
+        case .notActivated:
+            return .yellow
+        case .activated:
+            return .green
+        case .superseded:
+            return .secondary
+        }
+    }
+}
+
 struct StatusView: View {
-    let activated: Bool
+    let activation: ActivationState
     let size: CGFloat
     
     var body: some View {
-        if activated {
-            StatusTextView(text: "Activated", size: size, textColor: Color.green, borderColor: Color.green)
-        } else {
-            StatusTextView(text: "Not Activated", size: size, textColor: Color.yellow, borderColor: Color.yellow)
-        }
+        StatusTextView(text: activation.text, size: size, textColor: activation.color, borderColor: activation.color)
     }
 }

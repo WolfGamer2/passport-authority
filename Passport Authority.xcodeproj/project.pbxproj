@@ -21,6 +21,8 @@
 		2AD351A12B8AF84F00466EA3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2AD351A02B8AF84F00466EA3 /* Alamofire */; };
 		2AD351A52B8AF95800466EA3 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD351A42B8AF95800466EA3 /* DataService.swift */; };
 		E4AA5E472B8FBA2C0042A90F /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4AA5E462B8FBA2C0042A90F /* Config.plist */; };
+		E4AA5E4A2B923F990042A90F /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA5E492B923F990042A90F /* SignIn.swift */; };
+		E4AA5E4D2B9245750042A90F /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E4AA5E4C2B9245750042A90F /* KeychainSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,7 @@
 		2AD351A42B8AF95800466EA3 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		2AE04E5A2B8C4E9400CFB8DC /* Passport-Authority-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Passport-Authority-Info.plist"; sourceTree = SOURCE_ROOT; };
 		E4AA5E462B8FBA2C0042A90F /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		E4AA5E492B923F990042A90F /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4AA5E4D2B9245750042A90F /* KeychainSwift in Frameworks */,
 				2A5F548B2B8EB96600E7F977 /* ConfettiSwiftUI in Frameworks */,
 				2AD351A12B8AF84F00466EA3 /* Alamofire in Frameworks */,
 			);
@@ -120,6 +124,7 @@
 				2AD351732B89E1F800466EA3 /* Preview Content */,
 				2AD3519B2B89EBAD00466EA3 /* StatusView.swift */,
 				2AD3519D2B8AD09B00466EA3 /* PassportDetailView.swift */,
+				E4AA5E492B923F990042A90F /* SignIn.swift */,
 			);
 			path = "Passport Authority";
 			sourceTree = "<group>";
@@ -177,6 +182,7 @@
 			packageProductDependencies = (
 				2AD351A02B8AF84F00466EA3 /* Alamofire */,
 				2A5F548A2B8EB96600E7F977 /* ConfettiSwiftUI */,
+				E4AA5E4C2B9245750042A90F /* KeychainSwift */,
 			);
 			productName = "Passport Writer";
 			productReference = 2AD3516A2B89E1F700466EA3 /* Passport Authority.app */;
@@ -253,6 +259,7 @@
 			packageReferences = (
 				2AD3519F2B8AF84F00466EA3 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				2A5F54892B8EB96600E7F977 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
+				E4AA5E4B2B9245750042A90F /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
 			productRefGroup = 2AD3516B2B89E1F700466EA3 /* Products */;
 			projectDirPath = "";
@@ -301,6 +308,7 @@
 				2A45C1AC2B8BC6AA00FD8F10 /* NFCService.swift in Sources */,
 				2AD351702B89E1F700466EA3 /* ContentView.swift in Sources */,
 				2AD3516E2B89E1F700466EA3 /* Passport_WriterApp.swift in Sources */,
+				E4AA5E4A2B923F990042A90F /* SignIn.swift in Sources */,
 				2AD3519C2B89EBAD00466EA3 /* StatusView.swift in Sources */,
 				2AD351A52B8AF95800466EA3 /* DataService.swift in Sources */,
 			);
@@ -660,6 +668,14 @@
 				minimumVersion = 5.8.1;
 			};
 		};
+		E4AA5E4B2B9245750042A90F /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 21.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -672,6 +688,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2AD3519F2B8AF84F00466EA3 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		E4AA5E4C2B9245750042A90F /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E4AA5E4B2B9245750042A90F /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

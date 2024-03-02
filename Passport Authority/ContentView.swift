@@ -22,6 +22,7 @@ import AuthenticationServices
 
 struct PassportRowView: View {
     var passport: Passport
+    var status: ActivationState
 
     var body: some View {
         VStack(alignment: .leading, spacing: 3) {
@@ -33,7 +34,7 @@ struct PassportRowView: View {
                     Image(systemName: "person.text.rectangle.fill")
                     Text(String(passport.id))
                 }
-                StatusView(activated: passport.activated, size: 12)
+                StatusView(activation: status, size: 12)
             }
             .foregroundColor(.secondary)
             .font(.subheadline)
@@ -82,12 +83,36 @@ struct PassportListView: View {
         }
     }
     
+    @KeychainStorage("oauth") private var oauth: OAuth?
     @State private var passports = [Passport]()
     @State private var showAuthSheet = false
     
     @State private var searchText: String = ""
     @State private var sortOption: SortOption = .idAscending
     @State private var statusOption: StatusOption = .all
+    
+    var passportReferences: [Int32: Int32] {
+        var current = [Int32: Int32]()
+        for passport in passports {
+            if let entry = current[passport.ownerId], passport.id > entry {
+                current[passport.ownerId] = passport.id
+            } else if current[passport.ownerId] == nil {
+                current[passport.ownerId] = passport.id
+            }
+        }
+        
+        return current
+    }
+    
+    func stateForPassport(_ passport: Passport) -> ActivationState {
+        if !passport.activated && passportReferences[passport.ownerId] ?? -1 > passport.id {
+            return ActivationState.superseded
+        } else if passport.activated {
+            return ActivationState.activated
+        } else {
+            return ActivationState.notActivated
+        }
+    }
     
     var filteredPassports: [Passport] {
         var viewModelPassports = passports
@@ -127,14 +152,14 @@ struct PassportListView: View {
                 List {
                     ForEach(filteredPassports) { passport in
                         NavigationLink {
-                            PassportDetailView(passport: passport, onUpdate: {
+                            PassportDetailView(passport: passport, state: stateForPassport(passport), onUpdate: {
                                 Task {
                                     await refreshData()
                                 }
                             })
                                 .navigationBarTitleDisplayMode(.inline)
                         } label: {
-                            PassportRowView(passport: passport)
+                            PassportRowView(passport: passport, status: stateForPassport(passport))
                         }
                         .id(passport.id)
                     }
@@ -154,22 +179,34 @@ struct PassportListView: View {
                                 Label(option.rawValue, systemImage: option.icon).tag(option)
                             }
                         })
+                        Button("Sign Out", systemImage: "rectangle.portrait.and.arrow.right") {
+                            oauth = nil
+                        }
                     }
                 }
             }
-        }.task {
+        }.task(id: oauth?.accessToken == nil) {
             await refreshData()
         }
+        .fullScreenCover(isPresented: .constant(oauth == nil), content: {
+            SignIn()
+        })
         .searchable(text: $searchText)
         .autocorrectionDisabled(true)
     }
     
-    func refreshData() async {
+    private func refreshData() async {
+        guard let token = oauth?.accessToken else { return }
         do {
-            passports = try await fetchData()
+            passports = try await fetchData(withToken: token)
         } catch {
             print("Network error: \(error)")
         }
+    }
+    
+    private func getHostingViewController() -> UIViewController {
+        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        return scene!.keyWindow!.rootViewController!
     }
 }
 
