@@ -6,21 +6,23 @@
 //
 
 import SwiftUI
+import AuthenticationServices
 
-class PassportViewModel: ObservableObject {
-    @Published var passports = [Passport]()
-    
-    func load() {
-        fetchData { [weak self] data in
-            DispatchQueue.main.async {
-                self?.passports = data ?? []
-            }
-        }
-    }
-}
+//class PassportViewModel: ObservableObject {
+//    @Published var passports = [Passport]()
+//    
+//    func load() {
+//        fetchData { [weak self] data in
+//            DispatchQueue.main.async {
+//                self?.passports = data ?? []
+//            }
+//        }
+//    }
+//}
 
 struct PassportRowView: View {
     var passport: Passport
+    var status: ActivationState
 
     var body: some View {
         VStack(alignment: .leading, spacing: 3) {
@@ -32,7 +34,7 @@ struct PassportRowView: View {
                     Image(systemName: "person.text.rectangle.fill")
                     Text(String(passport.id))
                 }
-                StatusView(activated: passport.activated, size: 12)
+                StatusView(activation: status, size: 12)
             }
             .foregroundColor(.secondary)
             .font(.subheadline)
@@ -81,21 +83,45 @@ struct PassportListView: View {
         }
     }
     
-    @StateObject private var viewModel = PassportViewModel()
+    @KeychainStorage("oauth") private var oauth: OAuth?
+    @State private var passports = [Passport]()
+    @State private var showAuthSheet = false
     
     @State private var searchText: String = ""
     @State private var sortOption: SortOption = .idAscending
     @State private var statusOption: StatusOption = .all
-    @State private var activationColor: Color = .secondary
+    
+    var passportReferences: [Int32: Int32] {
+        var current = [Int32: Int32]()
+        for passport in passports {
+            if let entry = current[passport.ownerId], passport.id > entry {
+                current[passport.ownerId] = passport.id
+            } else if current[passport.ownerId] == nil {
+                current[passport.ownerId] = passport.id
+            }
+        }
+        
+        return current
+    }
+    
+    func stateForPassport(_ passport: Passport) -> ActivationState {
+        if !passport.activated && passportReferences[passport.ownerId] ?? -1 > passport.id {
+            return ActivationState.superseded
+        } else if passport.activated {
+            return ActivationState.activated
+        } else {
+            return ActivationState.notActivated
+        }
+    }
     
     var filteredPassports: [Passport] {
-        var viewModelPassports = viewModel.passports
+        var viewModelPassports = passports
         
         switch sortOption {
         case .idAscending:
-            viewModelPassports = viewModel.passports.sorted { $0.id < $1.id }
+            viewModelPassports = passports.sorted { $0.id < $1.id }
         case .idDescending:
-            viewModelPassports = viewModel.passports.sorted { $0.id > $1.id }
+            viewModelPassports = passports.sorted { $0.id > $1.id }
         }
         
         switch statusOption {
@@ -120,21 +146,27 @@ struct PassportListView: View {
     
     var body: some View {
         NavigationStack {
-            if viewModel.passports == [] {
+            if passports == [] {
                 SkeletonView()
             } else {
                 List {
                     ForEach(filteredPassports) { passport in
                         NavigationLink {
-                            PassportDetailView(passport: passport, viewModel: viewModel)
+                            PassportDetailView(passport: passport, state: stateForPassport(passport), onUpdate: {
+                                Task {
+                                    await refreshData()
+                                }
+                            })
                                 .navigationBarTitleDisplayMode(.inline)
                         } label: {
-                            PassportRowView(passport: passport)
+                            PassportRowView(passport: passport, status: stateForPassport(passport))
                         }
+                        .id(passport.id)
                     }
                 }
+                .animation(.easeInOut, value: filteredPassports)
                 .refreshable {
-                    viewModel.load()
+                    await refreshData()
                 }
                 .navigationTitle("Passports")
                 .toolbar {
@@ -147,24 +179,34 @@ struct PassportListView: View {
                                 Label(option.rawValue, systemImage: option.icon).tag(option)
                             }
                         })
+                        Button("Sign Out", systemImage: "rectangle.portrait.and.arrow.right") {
+                            oauth = nil
+                        }
                     }
                 }
             }
-        }.onAppear {
-            viewModel.load()
+        }.task(id: oauth?.accessToken == nil) {
+            await refreshData()
         }
+        .fullScreenCover(isPresented: .constant(oauth == nil), content: {
+            SignIn()
+        })
         .searchable(text: $searchText)
         .autocorrectionDisabled(true)
-        .onChange(of: statusOption) {
-            switch statusOption {
-            case .activated:
-                activationColor = .green
-            case .notActivated:
-                activationColor = .yellow
-            case .all:
-                activationColor = .secondary
-            }
+    }
+    
+    private func refreshData() async {
+        guard let token = oauth?.accessToken else { return }
+        do {
+            passports = try await fetchData(withToken: token)
+        } catch {
+            print("Network error: \(error)")
         }
+    }
+    
+    private func getHostingViewController() -> UIViewController {
+        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        return scene!.keyWindow!.rootViewController!
     }
 }
 
