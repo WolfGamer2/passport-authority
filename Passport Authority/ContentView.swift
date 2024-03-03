@@ -68,6 +68,7 @@ struct PassportListView: View {
         case all = "All"
         case activated = "Activated"
         case notActivated = "Not Activated"
+        case superseded = "Superseded"
         
         var id: String { self.rawValue }
         
@@ -79,6 +80,8 @@ struct PassportListView: View {
                 "bolt.fill"
             case .notActivated:
                 "bolt.slash.fill"
+            case .superseded:
+                "bolt.xmark"
             }
         }
     }
@@ -127,9 +130,11 @@ struct PassportListView: View {
         
         switch statusOption {
         case .activated:
-            viewModelPassports = viewModelPassports.filter { $0.activated }
+            viewModelPassports = viewModelPassports.filter { stateForPassport($0) == .activated }
         case .notActivated:
-            viewModelPassports = viewModelPassports.filter { !$0.activated }
+            viewModelPassports = viewModelPassports.filter { stateForPassport($0) == .notActivated }
+        case .superseded:
+            viewModelPassports = viewModelPassports.filter { stateForPassport($0) == .superseded }
         case .all:
             break
         }
@@ -175,9 +180,9 @@ struct PassportListView: View {
                         Button("Sort", image: ImageResource(name: sortOption == .idAscending ? "NumberUp" : "NumberDown", bundle: Bundle.main), action: {
                             sortOption = sortOption == .idAscending ? .idDescending : .idAscending
                         })
-                        Picker("Activation", systemImage: statusOption.icon, selection: $statusOption, content: {
+                        Picker("Activation", image: ImageResource(name: statusOption.icon == "bolt.xmark" ? "bolt.xmark" : statusOption.icon, bundle: Bundle.main), selection: $statusOption, content: {
                             ForEach(StatusOption.allCases, id: \.self) { option in
-                                Label(option.rawValue, systemImage: option.icon).tag(option)
+                                Label(option.rawValue, image: ImageResource(name: option.icon, bundle: Bundle.main)).tag(option)
                             }
                         })
                         Button("Sign Out", systemImage: "rectangle.portrait.and.arrow.right") {
