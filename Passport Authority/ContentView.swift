@@ -79,9 +79,9 @@ struct PassportListView: View {
             case .activated:
                 "bolt.fill"
             case .notActivated:
-                "bolt.slash.fill"
-            case .superseded:
                 "bolt.xmark"
+            case .superseded:
+                "bolt.slash.fill"
             }
         }
     }
