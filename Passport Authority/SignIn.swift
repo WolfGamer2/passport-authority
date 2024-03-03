@@ -15,26 +15,36 @@ struct SignIn: View {
     
     var body: some View {
         VStack {
-            Text("Passport Authority")
-                .font(.title)
-            Text("Please sign in with your Purdue Hackers ID.")
+            Image("PassportIcon")
+                .resizable()
+                .frame(width: 200, height: 200)
+                .padding([.bottom], 32)
             Button(action: {
                 Task {
                     await doSignIn()
                 }
             }) {
                 ZStack {
-                    Text("Sign In")
+                    Text("Sign in with passport")
                         .opacity(isSigningIn ? 0 : 1)
+                        .bold()
+                        .font(.title2)
                     ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
                         .opacity(isSigningIn ? 1 : 0)
                 }
             }
-            .buttonStyle(.borderedProminent)
+            .padding()
+            .padding([.horizontal], 32)
+            .background(Color.white)
+            .foregroundColor(.black)
+            .cornerRadius(4)
             if let lastError = lastError {
                 Text(lastError)
                     .foregroundStyle(.red)
+                    .padding([.horizontal])
             }
+            
         }
         .animation(.default, value: lastError)
         .animation(.default, value: isSigningIn)
