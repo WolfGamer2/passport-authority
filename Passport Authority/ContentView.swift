@@ -90,6 +90,7 @@ struct PassportListView: View {
     @State private var searchText: String = ""
     @State private var sortOption: SortOption = .idAscending
     @State private var statusOption: StatusOption = .all
+    @State private var showSignOutAlert = false
     
     var passportReferences: [Int32: Int32] {
         var current = [Int32: Int32]()
@@ -180,12 +181,22 @@ struct PassportListView: View {
                             }
                         })
                         Button("Sign Out", systemImage: "rectangle.portrait.and.arrow.right") {
-                            oauth = nil
+                            showSignOutAlert = true
                         }
                     }
                 }
             }
-        }.task(id: oauth?.accessToken == nil) {
+        }
+        .alert(isPresented: $showSignOutAlert) {
+            Alert(
+                title: Text("Sign out?"),
+                primaryButton: .destructive(Text("Sign Out")) {
+                    oauth = nil
+                },
+                secondaryButton: .cancel()
+            )
+        }
+        .task(id: oauth?.accessToken == nil) {
             await refreshData()
         }
         .fullScreenCover(isPresented: .constant(oauth == nil), content: {
