@@ -215,6 +215,12 @@ struct PassportListView: View {
         guard let token = oauth?.accessToken else { return }
         do {
             passports = try await fetchData(withToken: token)
+        } catch let error as NetworkError {
+            switch error {
+            case .noApiToken:
+                // likely auth token has expired — prompt user to sign in again
+                oauth = nil
+            }
         } catch {
             print("Network error: \(error)")
         }
